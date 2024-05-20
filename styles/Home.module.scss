@@ -1,0 +1,181 @@
+@import "variables.scss";
+
+.section {
+  margin-bottom: 100px;
+}
+
+.intro {
+  margin: 95px auto;
+  width: 871px;
+
+  &Text {
+    font-size: 50px;
+    line-height: 59px;
+
+    @media (max-width: 768px) {
+      font-size: clamp(25px, 5vw, 50px);
+      line-height: calc(100vw / 13);
+    }
+  }
+
+  @media (max-width: 1100px) {
+    width: calc(100vw - 210px);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.intro,
+.joinUs {
+  &Text {
+    color: $secondary;
+
+    &Code {
+      color: $secondary;
+      font-weight: 600;
+    }
+
+    &Collab {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+}
+
+.introArrow {
+  position: absolute;
+  left: -80px;
+  top: -5px;
+}
+
+.orangeLine {
+  width: 300px;
+  border: 2px solid $orange;
+  border-radius: 10px;
+  margin: 50px auto 0;
+}
+
+.title {
+  color: $primary;
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 50px;
+
+  @media (max-width: 768px) {
+    font-size: clamp(25px, 5vw, 50px);
+    margin-bottom: calc(100vw / 20);
+  }
+}
+
+.subTitle {
+  color: $primary;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 25px;
+
+  @media (max-width: 768px) {
+    font-size: clamp(20px, 5vw, 40px);
+    margin-bottom: calc(100vw / 20);
+  }
+}
+
+.featuresBlock {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 625px);
+  row-gap: 50px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: calc(100vw / 15);
+  }
+}
+
+.ratingSystemIcon {
+  svg {
+    @media (max-width: 768px) {
+      width: calc(15vw - 20px);
+      height: auto;
+    }
+  }
+}
+
+.ratingSystemIcon {
+  svg {
+    @media (max-width: 768px) {
+      width: calc(15vw - 20px);
+      height: auto;
+    }
+  }
+}
+
+.ratingSystemDesc {
+  font-size: 35px;
+  font-weight: 400;
+  line-height: 50px;
+  color: $secondary;
+  margin-left: 40px;
+  margin-top: 23px;
+
+  span {
+    color: $primary;
+  }
+
+  @media (max-width: 768px) {
+    font-size: clamp(15px, 5vw, 35px);
+    line-height: clamp(30px, 5vw, 50px);
+    margin-left: calc(100vw / 25);
+    margin-top: calc(100vw / 30);
+  }
+}
+
+.rankList {
+  gap: 80px;
+  justify-content: center;
+}
+
+.joinUsContainer {
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.joinUsContent {
+  @media (max-width: 1350px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.joinUsTextBlock {
+  @media (max-width: 1350px) {
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.joinUsText {
+  font-size: 26px;
+  line-height: 31px;
+
+  @media (max-width: 1350px) {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+}
+
+.joinUsButton {
+  padding: 10px 40px;
+  border-radius: 20px;
+  background: $primary;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $primary;
+    background: #fff;
+    outline: 1px solid $primary;
+  }
+}

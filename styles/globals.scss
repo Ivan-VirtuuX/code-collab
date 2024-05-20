@@ -1,0 +1,48 @@
+@import "variables.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+  width: 100%;
+  max-width: 1350px;
+  padding: 0 25px;
+  margin: 0 auto;
+}
+
+a {
+  user-select: none;
+}
+
+input {
+  outline: none;
+}
+
+main {
+  padding-bottom: 100px !important;
+}
+
+.ce-block__content {
+  max-width: 100% !important;
+  margin-left: 50px;
+}
+
+.ce-toolbar__content {
+  max-width: unset;
+}
+
+.ce-toolbar {
+  margin-left: 50px !important;
+}
+
+.codex-editor__redactor {
+  padding-bottom: 0 !important;
+}
+
+.ce-paragraph.cdx-block {
+  &:before {
+    color: $gray !important;
+    font-size: 20px !important;
+  }
+}

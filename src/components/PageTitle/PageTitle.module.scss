@@ -1,0 +1,12 @@
+@import "@/styles/variables";
+
+.title {
+  color: $secondary;
+  font-size: 50px;
+  font-weight: 700;
+
+  @media (max-width: 1200px) {
+    font-size: clamp(30px, 5vw, 50px);
+    line-height: clamp(30px, 5vw, 50px);
+  }
+}

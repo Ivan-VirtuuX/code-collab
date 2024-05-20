@@ -1,0 +1,99 @@
+@import "@/styles/variables";
+
+.container {
+  padding: 40px;
+  border: 0.5px solid $lightGray;
+  border-radius: 20px;
+  background: #fff;
+  width: fit-content;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.title {
+  color: $primary;
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 30px;
+
+  @media (max-width: 600px) {
+    font-size: clamp(25px, 9vw, 50px);
+  }
+}
+
+.input {
+  border-bottom: 1px solid $lightGray;
+  background: #fff;
+  padding: 10px 0;
+  font-size: 24px;
+  color: $secondary;
+  width: 455px;
+  transition: all 0.2s ease-in-out;
+
+  &::placeholder {
+    color: $gray;
+  }
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: clamp(15px, 5vw, 24px);
+  }
+}
+
+.submitButton {
+  padding: 15px 0;
+  border-radius: 20px;
+  background: $primary;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  width: 100%;
+  margin-top: 50px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    outline: 1px solid $primary;
+    background: #fff;
+    color: $primary;
+  }
+
+  &:disabled {
+    outline: none;
+    color: $darkGrayDisabled;
+    background: $lightGrayDisabled;
+  }
+
+  @media (max-width: 600px) {
+    font-size: clamp(15px, 5vw, 24px);
+  }
+}
+
+.warning,
+.error {
+  background: #f6d346;
+  border: 5px solid #ffebc3;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 20px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: clamp(10px, 5vw, 15px);
+  }
+}
+
+.error {
+  background: $red;
+  border: 5px solid #ff7f86;
+}
+
+.form:last-child > .warning {
+  margin-top: 20px;
+}

@@ -1,0 +1,22 @@
+@import "@/styles/variables";
+
+.login {
+  color: $primary;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.rank {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.text {
+  color: $secondary;
+  font-size: 25px;
+  margin-top: 15px;
+
+  @media (max-width: 768px) {
+    font-size: clamp(15px, 5vw, 25px);
+  }
+}

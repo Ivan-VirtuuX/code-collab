@@ -1,0 +1,29 @@
+@import "@/styles/variables";
+
+.container {
+  padding: 30px 0;
+  width: 380px;
+  border: 0.5px solid #000;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.name {
+  font-size: 35px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.line {
+  border: 1px solid #000;
+  width: 70px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.ratingPoints {
+  color: $secondary;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 15px;
+}

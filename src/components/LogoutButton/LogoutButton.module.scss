@@ -1,0 +1,19 @@
+@import "@/styles/variables";
+
+.signOutButton {
+  cursor: pointer;
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    svg {
+      path:last-child {
+        stroke: $primary;
+      }
+    }
+  }
+}

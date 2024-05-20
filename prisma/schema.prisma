@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  login        String    @unique
+  passwordHash String?
+  avatarUrl    String
+  githubUrl    String
+  ratingPoints Int
+  location     String
+  Like         Like[]
+  Comment      Comment[]
+  Collab       Collab[]
+}
+
+model Collab {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  authorId   String    @db.ObjectId
+  author     User      @relation(fields: [authorId], references: [id])
+  comments   Comment[]
+  stack      String[]
+  title      String
+  body       Json
+  viewsCount Int
+  tags       String[]
+}
+
+model Comment {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  authorId String @db.ObjectId
+  author   User   @relation(fields: [authorId], references: [id])
+  likes    Like[]
+  collabId String @db.ObjectId
+  Collab   Collab @relation(fields: [collabId], references: [id])
+}
+
+model Like {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String  @db.ObjectId
+  author    User    @relation(fields: [authorId], references: [id])
+  commentId String  @db.ObjectId
+  Comment   Comment @relation(fields: [commentId], references: [id])
+}

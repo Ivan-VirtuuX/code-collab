@@ -1,0 +1,149 @@
+@import "@/styles/variables";
+
+.form {
+  margin-top: 30px;
+}
+
+.title {
+  color: $secondary;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.input,
+.editor {
+  padding: 10px 20px;
+  border: 0.5px solid $gray;
+  border-radius: 15px;
+  background: #fff;
+  width: 100%;
+  font-size: 20px;
+  color: $secondary;
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.addTagContainer {
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.addTagButton {
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+  font-size: 15px;
+  font-weight: 700;
+  color: $secondary;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: $primary;
+  }
+
+  &:disabled {
+    color: $darkGrayDisabled;
+  }
+}
+
+.addTagInput {
+  width: 333px;
+  padding-right: 95px;
+}
+
+.tag {
+  padding: 5px 20px;
+  color: $secondary;
+  font-size: 12px;
+  border: 0.5px solid $secondary;
+  border-radius: 50px;
+  background: #fff;
+}
+
+.stackIconContainer,
+.selectStackIconsButton {
+  border: 0.5px solid $gray;
+  background: #fff;
+  padding: 7px;
+  border-radius: 50%;
+  width: fit-content;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+  }
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    border: 1px solid $primary;
+
+    svg {
+      path {
+        stroke: $primary;
+      }
+    }
+  }
+}
+
+.stackIconContainer {
+  img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    object-fit: contain;
+    margin: 5px;
+  }
+}
+
+.selectStackIconsButton {
+  svg {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    object-fit: contain;
+    margin: 5px;
+  }
+}
+
+.saveButton,
+.backButton {
+  padding: 10px 40px;
+  border-radius: 50px;
+  background: $primary;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:disabled {
+    pointer-events: none;
+    background: $lightGrayDisabled;
+    color: $darkGrayDisabled;
+  }
+
+  &:hover {
+    background: #fff;
+    outline: 1px solid $primary;
+    color: $primary;
+  }
+}
+
+.backButton {
+  background: $red;
+
+  &:hover {
+    background: #fff;
+    outline: 1px solid $red;
+    color: $red;
+  }
+}

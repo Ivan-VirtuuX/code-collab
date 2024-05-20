@@ -1,0 +1,47 @@
+@import "@/styles/variables";
+
+.container {
+  @media (max-width: 768px) {
+    gap: calc(100vw / 30);
+  }
+}
+
+.iconContainer {
+  svg {
+    @media (max-width: 768px) {
+      width: calc(15vw - 20px);
+      height: auto;
+    }
+  }
+}
+
+.textContainer {
+  @media (max-width: 768px) {
+    gap: calc(100vw / 40);
+  }
+}
+
+.title {
+  color: $secondary;
+  font-size: 27px;
+  font-weight: 700;
+  width: 262px;
+  line-height: 32px;
+
+  @media (max-width: 768px) {
+    font-size: clamp(15px, 5vw, 25px);
+  }
+}
+
+.description {
+  color: $secondary;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 32px;
+  width: 515px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    font-size: clamp(15px, 5vw, 25px);
+  }
+}

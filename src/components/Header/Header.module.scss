@@ -1,0 +1,139 @@
+@import "@/styles/variables";
+
+.header {
+  border-bottom: 0.5px solid $lightGray;
+  background: #fff;
+}
+
+.inner {
+  padding: 12px 0;
+}
+
+.logoText {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.logoTextCode {
+  color: $secondary;
+}
+
+.logoTextCollab {
+  color: $primary;
+}
+
+.links {
+  @media (max-width: 720px) {
+    display: none !important;
+  }
+}
+
+.link {
+  color: $secondary;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  span {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    color: $primary;
+
+    svg {
+      path {
+        fill: $primary;
+      }
+    }
+  }
+}
+
+.searchBtn {
+  color: $secondary;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    color: $primary;
+
+    svg {
+      path {
+        fill: $primary;
+      }
+    }
+  }
+}
+
+.login {
+  color: $secondary;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.2s ease-in-out;
+
+  span {
+    margin-left: 5px;
+  }
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    color: $primary;
+
+    svg {
+      path {
+        fill: $primary;
+      }
+    }
+  }
+}
+
+.loginBtn,
+.registerBtn {
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  color: #fff;
+  line-height: 18px;
+}
+
+.loginBtn {
+  background: $green;
+
+  &:hover {
+    color: $green;
+    background: #fff;
+    outline: 1px solid $green;
+  }
+}
+
+.registerBtn {
+  background: $primary;
+
+  &:hover {
+    color: $primary;
+    background: #fff;
+    outline: 1px solid $primary;
+  }
+}

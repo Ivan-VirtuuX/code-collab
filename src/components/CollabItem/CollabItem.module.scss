@@ -1,0 +1,35 @@
+@import "@/styles/variables";
+
+.container {
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  background: #fff;
+  padding: 20px;
+}
+
+.topText {
+  color: $secondary;
+  font-size: 15px;
+  margin-left: 5px;
+}
+
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: $secondary;
+  font-size: 25px;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: $primary;
+  }
+}
+
+.repliesText {
+  color: $secondary;
+  font-size: 15px;
+  margin-left: 5px;
+}

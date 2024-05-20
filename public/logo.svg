@@ -1,0 +1,20 @@
+<svg width="30.000000" height="30.000000" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clipPath id="clip243_174">
+            <rect id="Logo" rx="10.000000" width="30.000000" height="30.000000" fill="white" fill-opacity="0"/>
+        </clipPath>
+    </defs>
+    <rect id="Logo" rx="10.000000" width="30.000000" height="30.000000" fill="#FFFFFF" fill-opacity="1.000000"/>
+    <g clip-path="url(#clip243_174)">
+        <path id="path"
+              d="M16.82 20.95L16.79 20.97C16.25 20.97 15.82 20.54 15.82 20C15.82 19.45 16.25 19.02 16.79 19.02L16.82 19.04L16.82 20.95ZM23.38 19.04L23.4 19.02C23.94 19.02 24.37 19.45 24.37 20C24.37 20.54 23.94 20.97 23.4 20.97L23.38 20.95L23.38 19.04Z"
+              fill="#000000" fill-opacity="0" fill-rule="nonzero"/>
+        <path id="path" d="M16.79 20L23.4 20" stroke="#007BFF" stroke-opacity="1.000000" stroke-width="1.955556"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <path id="path"
+              d="M7.33 9.69L7.3 9.69C6.92 9.3 6.92 8.69 7.3 8.3C7.69 7.92 8.3 7.92 8.69 8.3L8.69 8.33L7.33 9.69ZM7.33 9.69L7.3 9.69C6.92 9.3 6.92 8.69 7.3 8.3C7.69 7.92 8.3 7.92 8.69 8.3L8.69 8.33L7.33 9.69ZM8.69 20.66L8.69 20.69C8.3 21.07 7.69 21.07 7.3 20.69C6.92 20.3 6.92 19.69 7.3 19.3L7.33 19.3L8.69 20.66ZM8.69 20.66L8.69 20.69C8.3 21.07 7.69 21.07 7.3 20.69C6.92 20.3 6.92 19.69 7.3 19.3L7.33 19.3L8.69 20.66Z"
+              fill="#000000" fill-opacity="0" fill-rule="nonzero"/>
+        <path id="path" d="M8 20L13.5 14.5L8 9M8 20L13.5 14.5L8 9" stroke="#2D3436" stroke-opacity="1.000000"
+              stroke-width="1.955556" stroke-linejoin="round"/>
+    </g>
+</svg>

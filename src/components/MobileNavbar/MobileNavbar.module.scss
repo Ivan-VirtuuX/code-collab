@@ -1,0 +1,44 @@
+@import "@/styles/variables";
+
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 0.5px solid $lightGray;
+  background: #fff;
+  height: 70px;
+  z-index: 1000;
+  padding: 12px 0;
+
+  @media (min-width: 720px) {
+    display: none;
+  }
+}
+
+.link {
+  color: $secondary;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  span {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    color: $primary;
+
+    svg {
+      path {
+        fill: $primary;
+      }
+    }
+  }
+}

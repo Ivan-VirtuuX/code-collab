@@ -1,0 +1,15 @@
+@import "@/styles/variables";
+
+.stackItem {
+  border: 0.5px solid $gray;
+  background: #fff;
+  padding: 7px;
+  border-radius: 50%;
+  width: fit-content;
+
+  img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+  }
+}
