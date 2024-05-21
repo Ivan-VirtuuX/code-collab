@@ -17,7 +17,7 @@ export default async function middleware(
     return NextResponse.redirect(new URL("/", req.url));
 
   if (
-    req.nextUrl.pathname.startsWith("/create") ||
+    (req.nextUrl.pathname.startsWith("/create") && !isAuthenticated) ||
     (req.nextUrl.pathname.startsWith("/edit-profile") && !isAuthenticated)
   )
     return NextResponse.redirect(new URL("/login", req.url));
