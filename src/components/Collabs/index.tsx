@@ -1,6 +1,8 @@
 import { CollabsListItem } from "@/components/CollabsListItem";
 
 export const CollabsList = ({ collabs }: { collabs: any[] }) => {
+  console.log(collabs);
+
   return (
     <>
       {collabs.length !== 0 &&

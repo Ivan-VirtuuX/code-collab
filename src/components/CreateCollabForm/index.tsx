@@ -14,7 +14,6 @@ import { getStackIcon } from "@/helpers/getStackIcon";
 import { PlusIcon } from "./PlusIcon";
 import { StackModal } from "@/components/StackModal";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 
 interface CreateCollabFormProps {
@@ -40,21 +39,14 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
 
   const router = useRouter();
 
-  const session = useSession();
-
   const onCreateCollab = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       setIsLoading(true);
 
-      const obj = {
-        body: blocks,
-        id: user?.id,
-      };
-
       if (blocks.length) {
-        await axios.post("/api/collab", {
+        await axios.post("http://localhost:3000/api/collab", {
           stack: stackIcons,
           title,
           body: blocks,

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import prismadb from "@/lib/prisma/prismadb";
 import { PageTitle } from "@/components/PageTitle";
 import { FoldersIcon } from "@/ui/FoldersIcon";
 import Link from "next/link";
@@ -13,31 +12,16 @@ import { formatDate } from "@/helpers/formatDate";
 import { getRank } from "@/helpers/getRank";
 import { RatingIcon } from "@/ui/RatingIcon";
 import { GitHubIcon } from "@/ui/GitHubIcon";
+import axios from "axios";
 
 const getData = async (login: string) => {
-  const collabs = await prismadb.collab.findMany({
-    select: {
-      author: true,
-      id: true,
-      title: true,
-      comments: true,
-      stack: true,
-      tags: true,
-      viewsCount: true,
-      createdAt: true,
-    },
-    where: {
-      author: {
-        login,
-      },
-    },
-  });
+  const { data: collabs } = await axios.get(
+    `http://localhost:3000/api/user/${login}/collabs`
+  );
 
-  const user = await prismadb.user.findUnique({
-    where: {
-      login,
-    },
-  });
+  const { data: user } = await axios.get(
+    `http://localhost:3000/api/user/${login}`
+  );
 
   return { collabs, user };
 };
@@ -59,8 +43,9 @@ export async function generateMetadata({
 }
 
 const User = async ({ params }: { params: { login: string } }) => {
-  const { user, collabs } = await getData(params.login);
   const session = await getServerSession();
+
+  const { user, collabs } = await getData(params.login);
 
   const userRank = {
     name: getRank(user?.ratingPoints || 0).name,
