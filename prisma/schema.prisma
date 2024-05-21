@@ -10,6 +10,7 @@ datasource db {
 model User {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   login        String    @unique
+  bio          String
   passwordHash String?
   avatarUrl    String
   githubUrl    String
@@ -18,6 +19,7 @@ model User {
   Like         Like[]
   Comment      Comment[]
   Collab       Collab[]
+  createdAt    DateTime
 }
 
 model Collab {
@@ -30,21 +32,24 @@ model Collab {
   body       Json
   viewsCount Int
   tags       String[]
+  createdAt  DateTime
 }
 
 model Comment {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  authorId String @db.ObjectId
-  author   User   @relation(fields: [authorId], references: [id])
-  likes    Like[]
-  collabId String @db.ObjectId
-  Collab   Collab @relation(fields: [collabId], references: [id])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String   @db.ObjectId
+  author    User     @relation(fields: [authorId], references: [id])
+  likes     Like[]
+  collabId  String   @db.ObjectId
+  Collab    Collab   @relation(fields: [collabId], references: [id])
+  createdAt DateTime
 }
 
 model Like {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  authorId  String  @db.ObjectId
-  author    User    @relation(fields: [authorId], references: [id])
-  commentId String  @db.ObjectId
-  Comment   Comment @relation(fields: [commentId], references: [id])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String   @db.ObjectId
+  author    User     @relation(fields: [authorId], references: [id])
+  commentId String   @db.ObjectId
+  Comment   Comment  @relation(fields: [commentId], references: [id])
+  createdAt DateTime
 }

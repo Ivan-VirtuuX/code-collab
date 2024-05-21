@@ -29,9 +29,9 @@ export const Index: React.FC = () => {
   ];
 
   return (
-    <ul className={`${styles.container} flex items-center justify-center`}>
-      <div className="flex justify-center">
-        <div className="container flex gap-5">
+    <ul className={`${styles.container} flex items-center`}>
+      <div className="flex justify-center w-full">
+        <div className="container flex justify-between gap-5">
           {navItems.map((item) => (
             <Link
               key={item.id}

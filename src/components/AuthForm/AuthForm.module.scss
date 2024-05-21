@@ -82,6 +82,7 @@
   border-radius: 20px;
   color: #fff;
   font-size: 20px;
+  margin-top: 20px;
 
   @media (max-width: 600px) {
     width: 100%;
@@ -96,4 +97,8 @@
 
 .form:last-child > .warning {
   margin-top: 20px;
+}
+
+.inputContainer {
+  width: 455px;
 }

@@ -11,12 +11,7 @@ import { CreateIcon } from "@/ui/CreateIcon";
 import { SearchIcon } from "@/ui/SearchIcon";
 
 export const Header: React.FC = async () => {
-  // const { width } = useWindowDimensions();
-
-  const width = 1000;
-
   const session = await getServerSession(authOptions);
-
   const user = session?.user;
 
   return (
@@ -64,7 +59,7 @@ export const Header: React.FC = async () => {
           <div className="right flex items-center gap-5">
             {user ? (
               <div className="flex items-center">
-                <Link href={`/${user.login}`}>
+                <Link href={`/u/${user.login}`}>
                   <div className={`${styles.login} flex items-center`}>
                     <UserIcon />
                     <span>{user.login}</span>
@@ -73,11 +68,7 @@ export const Header: React.FC = async () => {
                 <LogoutButton />
               </div>
             ) : (
-              <div
-                className={`flex gap-3 ${
-                  width < 470 && "flex-col-reverse items-center"
-                }`}
-              >
+              <div className="flex gap-3">
                 <Link href="/login" className={styles.loginBtn}>
                   Вход
                 </Link>

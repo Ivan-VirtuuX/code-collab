@@ -44,15 +44,15 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const onSubmitRegister: SubmitHandler<RegisterFormValues> = async (
     values
   ) => {
-    try {
-      await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
 
+    if (response?.ok) {
       await signIn("credentials", {
         login: values.login,
         password: values.password,
@@ -60,18 +60,21 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
       });
 
       router.push("/");
-    } catch (err) {
+    } else {
       setError("Логин занят");
-      console.error(err);
     }
   };
 
   const onSubmitLogin: SubmitHandler<LoginFormValues> = async (values) => {
-    await signIn("credentials", {
+    const response = await signIn("credentials", {
       login: values.login,
       password: values.password,
       callbackUrl: "/collabs",
+      redirect: false,
     });
+
+    if (response?.error && !response?.ok) setError(response.error);
+    else window.location.assign("/");
   };
 
   const form = type === "register" ? registerForm : loginForm;
@@ -111,48 +114,52 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
                 </motion.div>
               </AnimatePresence>
             )}
-            <input
-              {...registerField("login")}
-              className={styles.input}
-              type="text"
-              placeholder="Логин"
-            />
-            {form.formState.errors.login && (
-              <AnimatePresence>
-                <motion.div
-                  className={styles.warning}
-                  layout
-                  initial={{ opacity: 0, x: -400, scale: 0.5 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 200, scale: 1.2 }}
-                  transition={{ duration: 0.6, type: "spring" }}
-                >
-                  {form.formState.errors.login.message}
-                </motion.div>
-              </AnimatePresence>
-            )}
-            <input
-              {...registerField("password")}
-              className={styles.input}
-              type="password"
-              placeholder="Пароль"
-            />
-            {form.formState.errors.password && (
-              <AnimatePresence>
-                <motion.div
-                  className={styles.warning}
-                  layout
-                  initial={{ opacity: 0, x: -400, scale: 0.5 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 200, scale: 1.2 }}
-                  transition={{ duration: 0.6, type: "spring" }}
-                >
-                  {form.formState.errors.password.message}
-                </motion.div>
-              </AnimatePresence>
-            )}
+            <div className={styles.inputContainer}>
+              <input
+                {...registerField("login")}
+                className={styles.input}
+                type="text"
+                placeholder="Логин"
+              />
+              {form.formState.errors.login && (
+                <AnimatePresence>
+                  <motion.div
+                    className={styles.warning}
+                    layout
+                    initial={{ opacity: 0, x: -400, scale: 0.5 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: 200, scale: 1.2 }}
+                    transition={{ duration: 0.6, type: "spring" }}
+                  >
+                    {form.formState.errors.login.message}
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </div>
+            <div className={styles.inputContainer}>
+              <input
+                {...registerField("password")}
+                className={styles.input}
+                type="password"
+                placeholder="Пароль"
+              />
+              {form.formState.errors.password && (
+                <AnimatePresence>
+                  <motion.div
+                    className={styles.warning}
+                    layout
+                    initial={{ opacity: 0, x: -400, scale: 0.5 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: 200, scale: 1.2 }}
+                    transition={{ duration: 0.6, type: "spring" }}
+                  >
+                    {form.formState.errors.password.message}
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </div>
             {type === "register" && (
-              <>
+              <div className={styles.inputContainer}>
                 <input
                   {...registerField("secondPassword")}
                   className={styles.input}
@@ -173,7 +180,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
                     </motion.div>
                   </AnimatePresence>
                 )}
-              </>
+              </div>
             )}
           </div>
           <button

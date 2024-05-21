@@ -16,13 +16,17 @@ export default async function middleware(
   )
     return NextResponse.redirect(new URL("/", req.url));
 
-  if (req.nextUrl.pathname.startsWith("/create") && !isAuthenticated)
+  if (
+    req.nextUrl.pathname.startsWith("/create") ||
+    (req.nextUrl.pathname.startsWith("/edit-profile") && !isAuthenticated)
+  )
     return NextResponse.redirect(new URL("/login", req.url));
 
   if (
     req.nextUrl.pathname.startsWith("/login") ||
     req.nextUrl.pathname.startsWith("/register") ||
-    req.nextUrl.pathname.startsWith("/create")
+    req.nextUrl.pathname.startsWith("/create") ||
+    req.nextUrl.pathname.startsWith("/edit-profile")
   )
     return fetch(req);
 
@@ -36,5 +40,5 @@ export default async function middleware(
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/create"],
+  matcher: ["/login", "/register", "/create", "/edit-profile"],
 };

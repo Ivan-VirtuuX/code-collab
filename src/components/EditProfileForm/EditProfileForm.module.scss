@@ -1,0 +1,147 @@
+@import "@/styles/variables";
+
+.form {
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  background: #fff;
+  padding: 20px;
+}
+
+.label {
+  color: $primary;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.inputFieldsContainer {
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.inputContainer {
+  width: 455px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: clamp(15px, 5vw, 24px);
+  }
+}
+
+.input {
+  border-bottom: 1px solid $lightGray;
+  background: #fff;
+  padding: 10px 0;
+  font-size: 24px;
+  color: $secondary;
+  width: 455px;
+  transition: all 0.2s ease-in-out;
+
+  &::placeholder {
+    color: $gray;
+  }
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: clamp(15px, 5vw, 24px);
+  }
+}
+
+.avatarContainer {
+  width: 200px;
+  height: 200px;
+}
+
+.avatar {
+  img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  svg {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.textarea {
+  margin-top: 20px;
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  padding: 30px;
+  background: #fff;
+  color: $secondary;
+  font-size: 24px;
+  line-height: 28px;
+  resize: vertical;
+  transition: outline 0.2s ease-in-out;
+
+  &::placeholder {
+    color: $gray;
+  }
+
+  &:focus {
+    outline: 0.5px solid $primary;
+  }
+}
+
+.warning {
+  background: #f6d346;
+  border: 5px solid #ffebc3;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 20px;
+  margin-top: 20px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: clamp(10px, 5vw, 15px);
+  }
+}
+
+.buttons {
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.submitButton,
+.backButton {
+  color: #fff;
+  font-size: 16px;
+  line-height: 19px;
+  padding: 10px 40px;
+  border-radius: 50px;
+  background: $primary;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    pointer-events: none;
+    background: $lightGrayDisabled;
+    color: $darkGrayDisabled;
+  }
+
+  &:hover {
+    background: #fff;
+    outline: 1px solid $primary;
+    color: $primary;
+  }
+}
+
+.backButton {
+  background: $red;
+
+  &:hover {
+    background: #fff;
+    outline: 1px solid $red;
+    color: $red;
+  }
+}

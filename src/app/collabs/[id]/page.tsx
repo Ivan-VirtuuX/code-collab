@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import { ICollab } from "@/types/Collab";
+import axios from "axios";
 
 async function getCollab(id: string) {
-  const res = await fetch(`api/collab/${id}`);
+  const { data } = await axios.get(`http://localhost:3000/api/collab/${id}`);
 
-  return await res.json();
+  return data.collab;
 }
 
 export const metadata: Metadata = {
@@ -17,7 +18,13 @@ export const metadata: Metadata = {
 const Collab = async ({ params }: { params: { id: string } }) => {
   const collab: ICollab = await getCollab(params.id);
 
-  return <main className="container">{collab.title}</main>;
+  console.log(collab);
+
+  return (
+    <main className="container">
+      <div>{collab.title}</div>
+    </main>
+  );
 };
 
 export default Collab;

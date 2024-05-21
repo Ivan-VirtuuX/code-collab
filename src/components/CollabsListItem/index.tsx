@@ -3,7 +3,7 @@ import { ICollab } from "@/types/Collab";
 import { TimeIcon } from "@/ui/TimeIcon";
 import { formatDate } from "@/helpers/formatDate";
 
-import styles from "./CollabItem.module.scss";
+import styles from "./CollabsListItem.module.scss";
 import { UserInfo } from "@/components/UserInfo";
 import { EyeIcon } from "@/ui/EyeIcon";
 import { CollabStack } from "@/components/CollabStack";
@@ -13,7 +13,7 @@ import Link from "next/link";
 
 interface CollabItemProps extends ICollab {}
 
-export const CollabItem: React.FC<CollabItemProps> = ({
+export const CollabsListItem: React.FC<CollabItemProps> = ({
   id,
   title,
   createdAt,
@@ -47,7 +47,9 @@ export const CollabItem: React.FC<CollabItemProps> = ({
       <div className="flex items-center justify-between flex-wrap-reverse gap-2 mt-4">
         <div className="flex items-center">
           <ReplyIcon />
-          <span className={styles.repliesText}>Ответов: {comments.length}</span>
+          <span className={styles.repliesText}>
+            Ответов: {comments?.length || 0}
+          </span>
         </div>
         <CollabTags tags={tags} />
       </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Editor from "@/components/CollabEditor";
 import React from "react";
 import { OutputData } from "@editorjs/editorjs";
 import { useRouter } from "next/navigation";
@@ -14,10 +13,17 @@ import { getStackIcon } from "@/helpers/getStackIcon";
 
 import { PlusIcon } from "./PlusIcon";
 import { StackModal } from "@/components/StackModal";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
 
 interface CreateCollabFormProps {
   user: IUser | undefined;
 }
+
+const Editor = dynamic(() => import("@/components/CollabEditor"), {
+  ssr: false,
+});
 
 export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
   const [isImageSubmitting, setIsImageSubmitting] = React.useState(false);
@@ -27,13 +33,18 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
   const [newTag, setNewTag] = React.useState("");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [stackIcons, setStackIcons] = React.useState<string[]>([]);
+  const [title, setTitle] = React.useState("");
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const router = useRouter();
 
-  const onCreateCollab = async () => {
+  const session = useSession();
+
+  const onCreateCollab = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     try {
       setIsLoading(true);
 
@@ -43,23 +54,17 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
       };
 
       if (blocks.length) {
-        // await prismadb.collab.create({
-        //   data: {
-        //     authorId: user?.id,
-        //     comments: undefined,
-        //     title: "Untitled",
-        //     tags: [],
-        //     stack: [],
-        //     body: [],
-        //     viewsCount: 0,
-        //   },
-        // });
-
-        await router.push("/collabs");
+        await axios.post("/api/collab", {
+          stack: stackIcons,
+          title,
+          body: blocks,
+          tags,
+        });
       }
     } catch (err) {
       console.warn(err);
     } finally {
+      router.push("/collabs");
       setIsLoading(false);
     }
   };
@@ -104,6 +109,8 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
               type="text"
               placeholder="Нужна помощь с ошибкой..."
               className={styles.input}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div>

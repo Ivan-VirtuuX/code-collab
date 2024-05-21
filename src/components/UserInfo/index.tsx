@@ -24,19 +24,21 @@ export const UserInfo: React.FC<UserInfoProps> = ({
     <Link href={`/${login}`}>
       <div>
         <div className="flex items-center">
-          {avatarUrl ? (
-            <img className={styles.avatar} src={avatarUrl} alt="avatar" />
-          ) : (
-            <div className={styles.avatar}>
-              <DefaultAvatar />
-            </div>
-          )}
+          <div className={styles.avatar}>
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="avatar" />
+            ) : (
+              <div>
+                <DefaultAvatar />
+              </div>
+            )}
+          </div>
           <div className="flex flex-col">
             <p className={styles.login}>{login}</p>
             <div className={`${styles.rank} flex flex-col`} style={{ color }}>
               <span style={{ color: color }}>{getRank(ratingPoints).name}</span>
               <span className="flex items-center gap-1">
-                <RatingIcon color={color} width={12} />
+                <RatingIcon color={color} width={14} />
                 {formatRatingPoints(ratingPoints)} RP
               </span>
             </div>

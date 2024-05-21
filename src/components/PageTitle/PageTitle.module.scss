@@ -1,5 +1,16 @@
 @import "@/styles/variables";
 
+.container {
+  @media (max-width: 1200px) {
+    gap: clamp(5px, 5vw, 10px);
+
+    svg {
+      width: clamp(30px, 5vw, 50px);
+      height: clamp(30px, 5vw, 50px);
+    }
+  }
+}
+
 .title {
   color: $secondary;
   font-size: 50px;

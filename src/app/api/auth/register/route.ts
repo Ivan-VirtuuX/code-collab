@@ -24,11 +24,13 @@ export const POST = async (req: Request) => {
   const newUser = await prismadb.user.create({
     data: {
       login,
+      bio: "",
       avatarUrl: "",
       githubUrl: "",
       ratingPoints: 500,
       location: "",
       passwordHash,
+      createdAt: new Date(),
     },
   });
 

@@ -158,7 +158,7 @@ const Home: NextPage = () => {
           <hr className={styles.orangeLine} />
         </section>
         <section className={`${styles.platformDesc} ${styles.section}`}>
-          <h3 className={`${styles.title} text-right`}>
+          <h3 className={`${styles.title} text-center`}>
             На нашей платформе вы найдете
           </h3>
           <div className={`${styles.featuresBlock} justify-between`}>
@@ -185,7 +185,9 @@ const Home: NextPage = () => {
             </p>
           </div>
           <div>
-            <h4 className={styles.subTitle}>Как это работает:</h4>
+            <h4 className={`${styles.subTitle} text-center`}>
+              Как это работает:
+            </h4>
             <div className={`${styles.featuresBlock} justify-between`}>
               {ratingSystemFeatures.map((feature) => (
                 <FeatureItem key={feature.id} {...feature} />
@@ -205,7 +207,7 @@ const Home: NextPage = () => {
               <span>рейтинговых очков</span> (RP - <span>Rating Points</span>).
             </p>
           </div>
-          <h3 className={`${styles.subTitle} mt-12`}>Список рангов</h3>
+          <h3 className={`${styles.title} mt-12 text-center`}>Список рангов</h3>
           <div className={`${styles.rankList} flex flex-wrap`}>
             {ranks.map((rank) => (
               <RankListItem key={rank.id} {...rank} />
@@ -214,7 +216,9 @@ const Home: NextPage = () => {
           <hr className={styles.orangeLine} />
         </section>
         <section className={`${styles.reviewsBlock} ${styles.section}`}>
-          <h3 className={styles.title}>Отзывы довольных пользователей</h3>
+          <h3 className={`${styles.title} text-center`}>
+            Отзывы пользователей
+          </h3>
           <div className={styles.reviewsList}>
             {reviewsList.map((review) => (
               <div

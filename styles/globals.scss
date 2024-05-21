@@ -15,12 +15,13 @@ a {
   user-select: none;
 }
 
-input {
+input,
+textarea {
   outline: none;
 }
 
 main {
-  padding-bottom: 100px !important;
+  padding-bottom: 50px !important;
 }
 
 .ce-block__content {

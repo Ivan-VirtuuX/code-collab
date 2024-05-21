@@ -1,0 +1,157 @@
+@import "@/styles/variables";
+
+.profileInfo {
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 30px;
+  margin-top: 45px;
+
+  &Top {
+    border-bottom: 0.5px solid $gray;
+    padding-bottom: 30px;
+
+    @media (max-width: 400px) {
+      justify-content: center;
+    }
+  }
+}
+
+.login {
+  color: $secondary;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
+.createdAtBlock {
+  gap: 5px;
+
+  &Title,
+  &Text {
+    color: $secondary;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  &Text {
+    font-size: 15px;
+    line-height: 18px;
+  }
+}
+
+.avatar {
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  svg {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.rankBlockTitle {
+  color: $secondary;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
+.rankPoints {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.rankName {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.location {
+  color: $secondary;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+
+  &Title {
+    color: $secondary;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+}
+
+.githubLink {
+  color: $secondary;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.editProfileLink {
+  padding: 5px 20px;
+  outline: 0.5px solid $secondary;
+  border-radius: 50px;
+  background: #fff;
+  color: $secondary;
+  font-size: 12px;
+  line-height: 14px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: $primary;
+    color: #fff;
+    outline: none;
+  }
+}
+
+.aboutBlockTitle {
+  color: $primary;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 30px;
+}
+
+.aboutBlockDescription {
+  color: $secondary;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.createCollabButton {
+  span {
+    color: $secondary;
+    font-size: 25px;
+    font-weight: 700;
+    margin-left: 10px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    span {
+      color: $primary;
+    }
+
+    svg {
+      path {
+        fill: $primary;
+      }
+    }
+  }
+}
