@@ -46,7 +46,7 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
       setIsLoading(true);
 
       if (blocks.length) {
-        await axios.post("http://localhost:3000/api/collab", {
+        await axios.post("https://code-collab-six.vercel.app/api/collab", {
           stack: stackIcons,
           title,
           body: blocks,

@@ -3,7 +3,9 @@ import { ICollab } from "@/types/Collab";
 import axios from "axios";
 
 async function getCollab(id: string) {
-  const { data } = await axios.get(`http://localhost:3000/api/collab/${id}`);
+  const { data } = await axios.get(
+    `https://code-collab-six.vercel.app/api/collab/${id}`
+  );
 
   return data.collab;
 }

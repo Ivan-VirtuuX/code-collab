@@ -15,7 +15,7 @@ export const CollabsPageContent = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/api/collab/${
+          `https://code-collab-six.vercel.app/api/collab/${
             filterType === "all" ? "" : filterType
           }`
         );

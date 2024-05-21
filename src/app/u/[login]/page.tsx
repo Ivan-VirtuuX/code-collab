@@ -16,11 +16,11 @@ import axios from "axios";
 
 const getData = async (login: string) => {
   const { data: collabs } = await axios.get(
-    `http://localhost:3000/api/user/${login}/collabs`
+    `https://code-collab-six.vercel.app/api/user/${login}/collabs`
   );
 
   const { data: user } = await axios.get(
-    `http://localhost:3000/api/user/${login}`
+    `https://code-collab-six.vercel.app/api/user/${login}`
   );
 
   return { collabs, user };
