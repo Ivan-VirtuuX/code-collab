@@ -15,13 +15,11 @@ export const CollabsPageContent = () => {
     (async () => {
       try {
         const { data } = await axios.get(
-          `https://code-collab-six.vercel.app/api/collab/${
-            filterType === "all" ? "" : filterType
-          }`
+          `/api/collab/${filterType === "all" ? "" : filterType}`
         );
         setCollabs(data);
       } catch (error) {
-        console.error("Error fetching collabs:", error);
+        console.error("Error fetching collabs: ", error);
       }
     })();
   }, [filterType]);

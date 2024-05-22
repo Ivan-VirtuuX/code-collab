@@ -21,7 +21,7 @@ export const UserInfo: React.FC<UserInfoProps> = ({
   const color = getRank(ratingPoints).color;
 
   return (
-    <Link href={`/${login}`}>
+    <Link href={`/u/${login}`}>
       <div>
         <div className="flex items-center">
           <div className={styles.avatar}>
