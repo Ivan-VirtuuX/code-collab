@@ -13,6 +13,7 @@ import { getRank } from "@/helpers/getRank";
 import { RatingIcon } from "@/ui/RatingIcon";
 import { GitHubIcon } from "@/ui/GitHubIcon";
 import axios from "axios";
+import authOptions from "@/app/utils/auth";
 
 const getData = async (login: string) => {
   const { data: collabs } = await axios.get(
@@ -43,7 +44,7 @@ export async function generateMetadata({
 }
 
 const User = async ({ params }: { params: { login: string } }) => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   const { user, collabs } = await getData(params.login);
 
@@ -109,7 +110,7 @@ const User = async ({ params }: { params: { login: string } }) => {
                 <span className={styles.location}>{user?.location}</span>
               </div>
               <Link
-                href={user?.githubUrl || "https://github.com/Ivan-VirtuuX"}
+                href={user?.githubUrl}
                 className={`${styles.githubLink} flex items-center`}
               >
                 <GitHubIcon />

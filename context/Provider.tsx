@@ -8,5 +8,5 @@ interface ProviderProps {
 }
 
 export const Provider: React.FC<ProviderProps> = ({ children }) => {
-  return <SessionProvider basePath="/api/">{children}</SessionProvider>;
+  return <SessionProvider>{children}</SessionProvider>;
 };
