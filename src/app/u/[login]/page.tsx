@@ -53,6 +53,8 @@ const User = async ({ params }: { params: { login: string } }) => {
     color: getRank(user?.ratingPoints || 0).color,
   };
 
+  const isOwner = session?.user.id === user?.id;
+
   return (
     <main className="container">
       <div className={`${styles.profileInfo} flex flex-col gap-5`}>
@@ -117,9 +119,11 @@ const User = async ({ params }: { params: { login: string } }) => {
                 <span>GitHub</span>
               </Link>
             </div>
-            <Link href="/edit-profile" className={styles.editProfileLink}>
-              Редактировать
-            </Link>
+            {isOwner && (
+              <Link href="/edit-profile" className={styles.editProfileLink}>
+                Редактировать
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -132,7 +136,7 @@ const User = async ({ params }: { params: { login: string } }) => {
           <PageTitle title="Коллабы">
             <FoldersIcon />
           </PageTitle>
-          {session?.user.id !== user?.id && (
+          {isOwner && (
             <Link
               href="/create"
               className={`${styles.createCollabButton} flex items-center`}
