@@ -5,6 +5,11 @@
   height: 300px;
   object-fit: cover;
   border-radius: 50%;
+
+  @media (max-width: 450px) {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .modalOverlay {
@@ -13,6 +18,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 10000;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -26,6 +32,10 @@
   position: relative;
   width: 100%;
   max-width: 400px;
+
+  @media (max-width: 450px) {
+    width: calc(100vw - 20px);
+  }
 }
 
 .closeButton {

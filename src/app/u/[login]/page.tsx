@@ -109,15 +109,19 @@ const User = async ({ params }: { params: { login: string } }) => {
             <div className="flex flex-col items-end">
               <div className="flex flex-col items-end">
                 <span className={styles.locationTitle}>Местоположение</span>
-                <span className={styles.location}>{user?.location}</span>
+                <span className={styles.location}>
+                  {user?.location || "Не установлено"}
+                </span>
               </div>
-              <Link
-                href={user?.githubUrl}
-                className={`${styles.githubLink} flex items-center`}
-              >
-                <GitHubIcon />
-                <span>GitHub</span>
-              </Link>
+              {user?.githubUrl && (
+                <Link
+                  href={user?.githubUrl}
+                  className={`${styles.githubLink} flex items-center`}
+                >
+                  <GitHubIcon />
+                  <span>GitHub</span>
+                </Link>
+              )}
             </div>
             {isOwner && (
               <Link href="/edit-profile" className={styles.editProfileLink}>
