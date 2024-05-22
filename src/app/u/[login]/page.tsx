@@ -16,9 +16,13 @@ import axios from "axios";
 import authOptions from "@/app/utils/auth";
 
 const getData = async (login: string) => {
-  const { data: collabs } = await axios.get(`/api/user/${login}/collabs`);
+  const { data: collabs } = await axios.get(
+    `https://code-collab-six.vercel.app/api/user/${login}/collabs`
+  );
 
-  const { data: user } = await axios.get(`/api/user/${login}`);
+  const { data: user } = await axios.get(
+    `https://code-collab-six.vercel.app/api/user/${login}`
+  );
 
   return { collabs, user };
 };
