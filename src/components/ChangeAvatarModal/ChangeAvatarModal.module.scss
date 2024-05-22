@@ -1,15 +1,12 @@
 @import "@/styles/variables";
 
 .preview {
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 50%;
-
-  @media (max-width: 450px) {
-    width: 100%;
-    height: auto;
-  }
 }
 
 .modalOverlay {

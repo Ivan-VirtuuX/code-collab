@@ -54,6 +54,13 @@
   padding-right: 95px;
 }
 
+.addTagContainer,
+.addTagInput {
+  @media (max-width: 400px) {
+    width: 100% !important;
+  }
+}
+
 .tag {
   padding: 5px 20px;
   color: $secondary;
@@ -113,6 +120,12 @@
     cursor: pointer;
     object-fit: contain;
     margin: 5px;
+  }
+}
+
+.buttons {
+  @media (max-width: 768px) {
+    justify-content: center;
   }
 }
 

@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 
 const Create: NextPage = async () => {
   const session = await getServerSession(authOptions);
-
   const user = session?.user;
 
   return (

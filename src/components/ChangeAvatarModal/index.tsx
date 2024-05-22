@@ -3,6 +3,7 @@ import styles from "./ChangeAvatarModal.module.scss";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { PenIcon } from "@/ui/PenIcon";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface AvatarModalProps {
   handleChangeAvatar: (avatarUrl: string) => void;
@@ -117,35 +118,45 @@ export const ChangeAvatarModal: React.FC<AvatarModalProps> = ({
         onChange={(e) => handleChangeImage(e.target.files)}
         hidden
       />
+
       {isChangeAvatarOpen && (
         <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <button
-              className={styles.closeButton}
-              onClick={() => setIsChangeAvatarOpen(false)}
+          <AnimatePresence>
+            <motion.div
+              className={styles.error}
+              layout
+              initial={{ opacity: 0, x: -400, scale: 0.5 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 200, scale: 1.2 }}
+              transition={{ duration: 0.6, type: "spring" }}
             >
-              Закрыть
-            </button>
-            <div className="flex flex-col items-center">
-              {preview && (
-                <div>
-                  <img
-                    className={styles.preview}
-                    src={preview}
-                    alt="image preview"
-                  />
+              <div className={styles.modalContent}>
+                <button
+                  className={styles.closeButton}
+                  onClick={() => setIsChangeAvatarOpen(false)}
+                >
+                  Закрыть
+                </button>
+                <div className="flex flex-col items-center justify-center">
+                  {preview && (
+                    <img
+                      className={styles.preview}
+                      src={preview}
+                      alt="image preview"
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={onSubmitAttachedImage}
+                    className={styles.submitButton}
+                    disabled={isUploading || !preview}
+                  >
+                    Сохранить
+                  </button>
                 </div>
-              )}
-              <button
-                type="button"
-                onClick={onSubmitAttachedImage}
-                className={styles.submitButton}
-                disabled={isUploading || !preview}
-              >
-                Сохранить
-              </button>
-            </div>
-          </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       )}
     </>

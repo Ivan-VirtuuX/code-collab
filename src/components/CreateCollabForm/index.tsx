@@ -89,7 +89,7 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
   };
 
   return (
-    <div className="mt-11">
+    <div className="mt-11 mb-5">
       <PageTitle title="Создание коллабы">
         <CreateIcon />
       </PageTitle>
@@ -202,7 +202,7 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
             </div>
           </div>
         </div>
-        <div className="flex gap-4 mt-12">
+        <div className={`${styles.buttons} flex flex-wrap gap-4 mt-12`}>
           <button
             type="submit"
             className={styles.saveButton}
