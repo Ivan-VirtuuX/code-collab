@@ -17,10 +17,11 @@
   }
 }
 
-.filterButtonActive {
+.activeFilterButton {
   border-radius: 50px;
   background: $primary;
   padding: 10px 40px;
+  outline: none;
   color: #fff;
   font-size: 16px;
   line-height: 19px;

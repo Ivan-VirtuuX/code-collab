@@ -1,0 +1,36 @@
+@import "@/styles/variables";
+
+.container {
+  border-bottom: 0.5px solid $gray;
+  margin-bottom: 20px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.text {
+  color: $secondary;
+  font-size: 18px;
+  line-height: 21px;
+  margin: 10px 0;
+}
+
+.repliesText {
+  color: $secondary;
+  font-size: 15px;
+  line-height: 18px;
+  margin-left: 5px;
+}
+
+.showMoreButton,
+.replyButton {
+  color: $secondary;
+  font-size: 15px;
+  line-height: 18px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: $primary;
+  }
+}

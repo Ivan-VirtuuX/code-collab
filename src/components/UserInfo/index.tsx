@@ -34,7 +34,9 @@ export const UserInfo: React.FC<UserInfoProps> = ({
             )}
           </div>
           <div className="flex flex-col">
-            <p className={styles.login}>{login}</p>
+            <p className={styles.login} style={{ color }}>
+              {login}
+            </p>
             <div className={`${styles.rank} flex flex-col`} style={{ color }}>
               <span style={{ color: color }}>{getRank(ratingPoints).name}</span>
               <span className="flex items-center gap-1">

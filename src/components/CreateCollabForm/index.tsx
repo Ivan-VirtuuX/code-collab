@@ -13,16 +13,17 @@ import { getStackIcon } from "@/helpers/getStackIcon";
 
 import { PlusIcon } from "./PlusIcon";
 import { StackModal } from "@/components/StackModal";
-import axios from "axios";
 import dynamic from "next/dynamic";
-
-interface CreateCollabFormProps {
-  user: IUser | undefined;
-}
+import { useSession } from "next-auth/react";
+import { Api } from "@/api";
 
 const Editor = dynamic(() => import("@/components/CollabEditor"), {
   ssr: false,
 });
+
+interface CreateCollabFormProps {
+  user: IUser | undefined;
+}
 
 export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
   const [isImageSubmitting, setIsImageSubmitting] = React.useState(false);
@@ -33,6 +34,10 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [stackIcons, setStackIcons] = React.useState<string[]>([]);
   const [title, setTitle] = React.useState("");
+
+  const { data: session, update } = useSession();
+
+  const userRatingPoints = session?.user?.ratingPoints || 0;
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -46,15 +51,12 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
       setIsLoading(true);
 
       if (blocks.length) {
-        await axios.post("/api/collab", {
-          stack: stackIcons,
-          title,
-          body: blocks,
-          tags,
-        });
+        await Api().collab.create(stackIcons, title, blocks, tags);
+
+        await update({ ...session, ratingPoints: userRatingPoints + 50 });
       }
     } catch (err) {
-      console.warn(err);
+      console.error(err);
     } finally {
       router.push("/collabs");
       setIsLoading(false);
@@ -160,7 +162,6 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
                 <AnimatePresence>
                   <motion.div
                     layout
-                    initial={{ opacity: 0, x: -400, scale: 0.5 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={{ opacity: 0, x: 200, scale: 1.2 }}
                     transition={{ duration: 0.6, type: "spring" }}
@@ -210,7 +211,8 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
               isImageSubmitting ||
               !blocks.length ||
               isLoading ||
-              blocks.filter((block) => block.type === "image").length > 10
+              blocks.filter((block) => block.type === "image").length > 10 ||
+              !title
             }
             color="primary"
           >

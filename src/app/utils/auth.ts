@@ -25,6 +25,23 @@ export const authOptions: NextAuthOptions = {
           where: {
             login: credentials.login,
           },
+          select: {
+            pointsHistory: {
+              select: {
+                author: true,
+                eventType: true,
+                points: true,
+              },
+            },
+            id: true,
+            login: true,
+            passwordHash: true,
+            bio: true,
+            avatarUrl: true,
+            githubUrl: true,
+            location: true,
+            ratingPoints: true,
+          },
         });
 
         if (!user?.passwordHash) throw new Error("Неверный логин или пароль");
@@ -44,6 +61,7 @@ export const authOptions: NextAuthOptions = {
           githubUrl: user.githubUrl,
           ratingPoints: user.ratingPoints,
           location: user.location,
+          pointsHistory: user.pointsHistory,
         };
       },
     }),
@@ -52,6 +70,9 @@ export const authOptions: NextAuthOptions = {
     jwt: async ({ token, user, trigger, session }) => {
       if (trigger === "update" && session.avatarUrl)
         token.avatarUrl = session.avatarUrl;
+
+      if (trigger === "update" && session.ratingPoints)
+        token.ratingPoints = session.ratingPoints;
 
       if (
         trigger === "update" &&
@@ -70,29 +91,6 @@ export const authOptions: NextAuthOptions = {
 
       return session;
     },
-
-    // async jwt({ token, user }) {
-    //   if (user) {
-    //     return {
-    //       ...token,
-    //       ...user,
-    //     };
-    //   }
-    //   return token;
-    // },
-    // async session({ session, token }: { session: Session; token: JWT }) {
-    //   return {
-    //     ...session,
-    //     user: {
-    //       id: token.id,
-    //       login: token.login,
-    //       avatarUrl: token.avatarUrl,
-    //       githubUrl: token.githubUrl,
-    //       ratingPoints: token.ratingPoints,
-    //       location: token.location,
-    //     },
-    //   };
-    // },
   },
   pages: {
     signIn: "/login",

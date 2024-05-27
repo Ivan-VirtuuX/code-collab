@@ -1,13 +1,7 @@
 import { IRank } from "@/types/Rank";
 
 export const ranks: IRank[] = [
-  {
-    id: 1,
-    name: "Новичок",
-    color: "#2D3436",
-    minPoints: 0,
-    maxPoints: 2000,
-  },
+  { id: 1, name: "Новичок", color: "#2D3436", minPoints: 0, maxPoints: 2000 },
   {
     id: 2,
     name: "Исследователь",
@@ -55,9 +49,7 @@ export const ranks: IRank[] = [
   },
 ];
 
-export const getRank = (
-  ratingPoints: number
-): Omit<IRank, "minPoints" | "maxPoints"> => {
+export const getRank = (ratingPoints: number = 0) => {
   const rank = ranks.find(
     (r) => ratingPoints >= r.minPoints && ratingPoints < r.maxPoints
   );
@@ -66,5 +58,7 @@ export const getRank = (
     id: rank?.id ?? 0,
     name: rank?.name ?? "Unranked",
     color: rank?.color ?? "#000",
+    minPoints: rank?.minPoints ?? 0,
+    maxPoints: rank?.maxPoints ?? Infinity,
   };
 };

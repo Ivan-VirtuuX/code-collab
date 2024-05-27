@@ -1,0 +1,103 @@
+@import "@/styles/variables";
+
+.blockContainer {
+  padding: 30px;
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  background: #fff;
+
+  @media (max-width: 860px) {
+    width: 100%;
+  }
+}
+
+.statsTitle {
+  color: $secondary;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 30px;
+  margin-bottom: 15px;
+
+  @media (max-width: 400px) {
+    font-size: clamp(15px, 5vw, 30px);
+  }
+}
+
+.leftBlockContainer {
+  @media (max-width: 860px) {
+    width: 100%;
+  }
+}
+
+.leftBlock {
+  width: 812px;
+
+  @media (max-width: 860px) {
+    width: 100%;
+  }
+}
+
+.rightBlock {
+  width: 438px;
+  height: fit-content;
+
+  @media (max-width: 860px) {
+    margin: 0 auto;
+  }
+}
+
+.statsText {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.progressBar {
+  height: 10px;
+  border-radius: 24px;
+  outline: 0.5px solid $gray;
+  background: #fff;
+  margin: 10px 0;
+}
+
+.progressBarInner {
+  height: 10px;
+  border-radius: 24px;
+}
+
+.points {
+  margin-left: 5px;
+}
+
+.pointEarnTableTitle {
+  color: $secondary;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33px;
+  margin-bottom: 25px;
+}
+
+.pointEarnTableColumnName {
+  color: $primary;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.pointEarnTableRow {
+  color: $secondary;
+  font-size: 15px;
+  line-height: 18px;
+
+  &:not(:last-child) {
+    border-bottom: 0.5px solid $gray;
+    padding-bottom: 10px;
+  }
+}
+
+.pointsHistoryTitle {
+  color: $secondary;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 30px;
+}

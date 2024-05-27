@@ -3,7 +3,6 @@ import { PageTitle } from "@/components/PageTitle";
 import { FoldersIcon } from "@/ui/FoldersIcon";
 import Link from "next/link";
 import styles from "./User.module.scss";
-import { CollabsList } from "@/components/Collabs";
 import { CreateIcon } from "@/ui/CreateIcon";
 import { getServerSession } from "next-auth";
 import { DefaultAvatar } from "@/ui/DefaultAvatar";
@@ -12,17 +11,14 @@ import { formatDate } from "@/helpers/formatDate";
 import { getRank } from "@/helpers/getRank";
 import { RatingIcon } from "@/ui/RatingIcon";
 import { GitHubIcon } from "@/ui/GitHubIcon";
-import axios from "axios";
 import authOptions from "@/app/utils/auth";
+import { formatRatingPoints } from "@/helpers/formatRatingPoints";
+import { Api } from "@/api";
+import { PageContent } from "./PageContent";
 
 const getData = async (login: string) => {
-  const { data: collabs } = await axios.get(
-    `https://code-collab-six.vercel.app/api/user/${login}/collabs`
-  );
-
-  const { data: user } = await axios.get(
-    `https://code-collab-six.vercel.app/api/user/${login}`
-  );
+  const collabs = await Api().user.getCollabs(login);
+  const user = await Api().user.getOne(login);
 
   return { collabs, user };
 };
@@ -85,7 +81,11 @@ const User = async ({ params }: { params: { login: string } }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-between">
+          <Link
+            href="/rank"
+            style={{ pointerEvents: isOwner ? "auto" : "none" }}
+            className="flex flex-col items-center justify-between"
+          >
             <span className={styles.rankBlockTitle}>Ранг</span>
             <div className="flex flex-col items-center">
               <span
@@ -100,11 +100,11 @@ const User = async ({ params }: { params: { login: string } }) => {
                   className={styles.rankPoints}
                   style={{ color: userRank.color }}
                 >
-                  {user?.ratingPoints} RP
+                  {formatRatingPoints(user?.ratingPoints)} RP
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
           <div className="flex flex-col items-end justify-between">
             <div className="flex flex-col items-end">
               <div className="flex flex-col items-end">
@@ -132,7 +132,9 @@ const User = async ({ params }: { params: { login: string } }) => {
         </div>
         <div className="flex flex-col gap-2">
           <p className={styles.aboutBlockTitle}>Обо мне</p>
-          <p className={styles.aboutBlockDescription}>{user?.bio}</p>
+          <p className={styles.aboutBlockDescription}>
+            {user?.bio || "Информации нет"}
+          </p>
         </div>
       </div>
       <div>
@@ -151,7 +153,7 @@ const User = async ({ params }: { params: { login: string } }) => {
           )}
         </div>
         <div className="flex flex-col gap-7 mt-12 my-10">
-          <CollabsList collabs={collabs} />
+          <PageContent initialCollabs={collabs} />
         </div>
       </div>
     </main>

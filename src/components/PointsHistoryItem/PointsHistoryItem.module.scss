@@ -1,0 +1,23 @@
+@import "@/styles/variables";
+
+.container {
+  &:not(:last-child) {
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid $gray;
+  }
+}
+
+.createdAt {
+  color: $gray;
+  font-size: 12px;
+  line-height: 14px;
+  flex: 1;
+}
+
+.right {
+  color: $primary;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  flex: 2;
+}

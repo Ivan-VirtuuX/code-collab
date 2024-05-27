@@ -1,7 +1,7 @@
+"use client";
+
 import React from "react";
 import { ICollab } from "@/types/Collab";
-import { TimeIcon } from "@/ui/TimeIcon";
-import { formatDate } from "@/helpers/formatDate";
 
 import styles from "./CollabsListItem.module.scss";
 import { UserInfo } from "@/components/UserInfo";
@@ -10,8 +10,17 @@ import { CollabStack } from "@/components/CollabStack";
 import { ReplyIcon } from "@/ui/ReplyIcon";
 import { CollabTags } from "@/components/CollabTags";
 import Link from "next/link";
+import { CreatedAtBlock } from "@/components/CreatedAtBlock";
+import { OutputBlockData } from "@editorjs/editorjs";
+import ContextMenu from "@/components/ContextMenu";
+import { Api } from "@/api";
+import { IUser } from "@/types/User";
 
-interface CollabItemProps extends ICollab {}
+interface CollabItemProps extends ICollab {
+  handleDelete?: (id: string) => void;
+  canDelete?: boolean;
+  authUser?: IUser;
+}
 
 export const CollabsListItem: React.FC<CollabItemProps> = ({
   id,
@@ -22,16 +31,46 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
   tags,
   author,
   viewsCount,
+  body,
+  handleDelete,
+  canDelete = true,
+  authUser,
 }) => {
+  const [contextMenu, setContextMenu] = React.useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    if (canDelete && author.id === authUser?.id) {
+      e.preventDefault();
+      setContextMenu({ x: e.pageX, y: e.pageY });
+    }
+  };
+
+  const onClickDeleteCollab = async () => {
+    try {
+      if (handleDelete) handleDelete(id);
+
+      setContextMenu(null);
+
+      await Api().collab.delete(id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={`${styles.top} flex justify-between flex-wrap gap-2`}>
+    <div
+      className={styles.container}
+      onContextMenu={handleContextMenu}
+      ref={containerRef}
+    >
+      <div className="flex justify-between items-start flex-wrap gap-2">
         <UserInfo {...author} />
         <div className="flex items-center gap-4">
-          <div className="flex items-center">
-            <TimeIcon />
-            <span className={styles.topText}>{formatDate(createdAt)}</span>
-          </div>
+          <CreatedAtBlock createdAt={createdAt} />
           <div className="flex items-center">
             <EyeIcon />
             <span className={styles.topText}>{viewsCount}</span>
@@ -41,6 +80,13 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
       <Link href={`/collabs/${id}`}>
         <p className={styles.title}>{title}</p>
       </Link>
+      <div>
+        {body?.map((obj: OutputBlockData["data"]) => (
+          <p key={obj?.id} className={styles.text}>
+            {obj.data.text}
+          </p>
+        ))}
+      </div>
       <div className="flex justify-end">
         <CollabStack stack={stack} />
       </div>
@@ -53,6 +99,14 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
         </div>
         <CollabTags tags={tags} />
       </div>
+      {contextMenu && (
+        <ContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          onClose={() => setContextMenu(null)}
+          onClickDelete={onClickDeleteCollab}
+        />
+      )}
     </div>
   );
 };

@@ -1,0 +1,9 @@
+@import "@/styles/variables";
+
+.likesCount {
+  color: $secondary;
+  font-size: 15px;
+  line-height: 18px;
+  margin-left: 5px;
+  user-select: none;
+}

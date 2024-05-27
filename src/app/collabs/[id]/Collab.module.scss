@@ -1,0 +1,107 @@
+@import "@/styles/variables";
+
+.collabContainer {
+  margin-top: 45px;
+  margin-bottom: 40px;
+}
+
+.commentsBlock {
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  background: #fff;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.commentInput {
+  color: $secondary;
+  font-size: 16px;
+  line-height: 19px;
+  padding: 16px;
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  background: #fff;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+
+  &::placeholder {
+    color: $gray;
+  }
+
+  &:focus {
+    outline: 0.5px solid $primary;
+  }
+}
+
+.sendCommentButton {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 7px 20px;
+  border-radius: 10px;
+  background: $primary;
+  color: #fff;
+  font-size: 14px;
+  line-height: 17px;
+  transition: all 0.2s ease-in-out;
+
+  @media (max-width: 420px) {
+    span {
+      display: none;
+    }
+  }
+
+  svg {
+    path {
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &:disabled {
+    color: $darkGrayDisabled;
+    background: $lightGrayDisabled;
+    pointer-events: none;
+
+    svg {
+      path {
+        fill: $darkGrayDisabled;
+      }
+    }
+  }
+
+  &:hover {
+    outline: 0.5px solid $primary;
+    background: #fff;
+    color: $primary;
+
+    svg {
+      path {
+        fill: $primary;
+      }
+    }
+  }
+}
+
+.replyUserLogin {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  color: $secondary;
+  font-size: 14px;
+  line-height: 17px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.showMoreButton {
+  color: $secondary;
+  font-size: 15px;
+  line-height: 18px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: $primary;
+  }
+}

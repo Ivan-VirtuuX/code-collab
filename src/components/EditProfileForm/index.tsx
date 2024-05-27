@@ -6,13 +6,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditProfileSchema } from "@/schemas/index";
-import axios from "axios";
 import * as z from "zod";
 import { IUser } from "@/types/User";
 import { useRouter } from "next/navigation";
 import { DefaultAvatar } from "@/ui/DefaultAvatar";
 import { ChangeAvatarModal } from "@/components/ChangeAvatarModal";
 import { useSession } from "next-auth/react";
+import { Api } from "@/api";
 
 type EditProfileFormValues = z.infer<typeof EditProfileSchema>;
 
@@ -43,25 +43,23 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
     },
   });
 
-  const onSaveEditProfile = async (values: EditProfileFormValues, e: any) => {
+  const onSaveEditProfile = async (
+    { login, githubUrl, location, bio }: EditProfileFormValues,
+    e: any
+  ) => {
     e.preventDefault();
 
     try {
-      await axios.patch("/api/edit-profile", {
-        login: values.login,
-        githubUrl: values.githubUrl,
-        location: values.location,
-        bio: values.bio,
-      });
+      await Api().user.editProfile(login, bio, location, githubUrl);
 
       await update({
-        login: values.login,
-        githubUrl: values.githubUrl,
-        location: values.location,
-        bio: values.bio,
+        login,
+        githubUrl,
+        location,
+        bio,
       });
     } catch (err) {
-      console.warn(err);
+      console.error(err);
 
       setError("Ошибка при сохранении профиля");
     }

@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./ChangeAvatarModal.module.scss";
-import axios from "axios";
 import { useSession } from "next-auth/react";
 import { PenIcon } from "@/ui/PenIcon";
 import { AnimatePresence, motion } from "framer-motion";
+import { Api } from "@/api";
 
 interface AvatarModalProps {
   handleChangeAvatar: (avatarUrl: string) => void;
@@ -12,7 +12,9 @@ interface AvatarModalProps {
 export const ChangeAvatarModal: React.FC<AvatarModalProps> = ({
   handleChangeAvatar,
 }) => {
-  const [attachedImageFormData, setAttachedImageFormData] = React.useState([]);
+  const [attachedImageFormData, setAttachedImageFormData] = React.useState<
+    FormData[]
+  >([]);
   const [isChangeAvatarOpen, setIsChangeAvatarOpen] = React.useState(false);
   const [attachedImage, setAttachedImage] = React.useState<File>();
   const [isSaveImage, setIsSaveImage] = React.useState(false);
@@ -47,36 +49,27 @@ export const ChangeAvatarModal: React.FC<AvatarModalProps> = ({
 
       files && setIsSaveImage(true);
     } catch (err) {
-      console.warn(err);
+      console.error(err);
 
       alert("Ошибка при загрузке файла");
     }
   };
 
-  const onSubmitAttachedImage = async () => {
+  const onSaveAvatar = async () => {
     try {
       setIsUploading(true);
 
-      const { data } = await axios.post(
-        "https://api.cloudinary.com/v1_1/virtuux/image/upload",
-        attachedImageFormData
-      );
+      const avatarUrl = await Api().user.updateAvatar(attachedImageFormData);
 
-      handleChangeAvatar(data.secure_url);
+      handleChangeAvatar(avatarUrl);
 
       await update({
-        avatarUrl: data.secure_url,
+        avatarUrl,
       });
-
-      await axios.patch("/api/upload-avatar", { avatarUrl: data.secure_url });
-
-      setIsUploading(false);
-
-      return data;
     } catch (err) {
-      console.warn(err);
+      console.error(err);
 
-      alert("Update image error");
+      alert("Ошибка при загрузке аватара");
     } finally {
       setIsSaveImage(false);
       setIsUploading(false);
@@ -147,7 +140,7 @@ export const ChangeAvatarModal: React.FC<AvatarModalProps> = ({
                   )}
                   <button
                     type="button"
-                    onClick={onSubmitAttachedImage}
+                    onClick={onSaveAvatar}
                     className={styles.submitButton}
                     disabled={isUploading || !preview}
                   >

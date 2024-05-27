@@ -1,5 +1,6 @@
 import { IComment } from "@/types/Comment";
 import { IUser } from "@/types/User";
+import { OutputBlockData } from "@editorjs/editorjs";
 
 export interface ICollab {
   id: string;
@@ -7,7 +8,7 @@ export interface ICollab {
   comments: IComment[];
   stack: string[];
   title: string;
-  body: string;
+  body: OutputBlockData["data"];
   viewsCount: number;
   tags: string[];
   createdAt: Date;

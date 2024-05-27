@@ -3,23 +3,30 @@
 import { PageTitle } from "@/components/PageTitle";
 import { PeopleIcon } from "@/ui/PeopleIcon";
 import styles from "@/app/collabs/CollabsPage.module.scss";
-import { CollabsList } from "@/components/Collabs";
-import axios from "axios";
+import { CollabsList } from "../../components/CollabsList";
 import React from "react";
+import { Api } from "@/api";
+import { ICollab } from "@/types/Collab";
+import { IUser } from "@/types/User";
 
-export const CollabsPageContent = () => {
-  const [collabs, setCollabs] = React.useState([]);
+export const CollabsPageContent: React.FC<{ authUser?: IUser }> = ({
+  authUser,
+}) => {
+  const [collabs, setCollabs] = React.useState<ICollab[]>([]);
   const [filterType, setFilterType] = React.useState("all");
 
   React.useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          `/api/collab/${filterType === "all" ? "" : filterType}`
-        );
-        setCollabs(data);
+        if (filterType === "all") {
+          const data = await Api().collab.getAll();
+          setCollabs(data);
+        } else {
+          const data = await Api().collab.getPopular();
+          setCollabs(data);
+        }
       } catch (error) {
-        console.error("Error fetching collabs: ", error);
+        console.error(error);
       }
     })();
   }, [filterType]);
@@ -32,13 +39,17 @@ export const CollabsPageContent = () => {
         </PageTitle>
         <div className="flex gap-3">
           <button
-            className={styles.filterButton}
+            className={`${styles.filterButton} ${
+              filterType === "all" && styles.activeFilterButton
+            }`}
             onClick={() => setFilterType("all")}
           >
             Все
           </button>
           <button
-            className={styles.filterButton}
+            className={`${styles.filterButton} ${
+              filterType === "popular" && styles.activeFilterButton
+            }`}
             onClick={() => setFilterType("popular")}
           >
             Популярные
@@ -46,7 +57,11 @@ export const CollabsPageContent = () => {
         </div>
       </div>
       <div className="flex flex-col gap-7 mt-12 my-10">
-        <CollabsList collabs={collabs} />
+        <CollabsList
+          collabs={collabs}
+          setCollabs={setCollabs}
+          authUser={authUser}
+        />
       </div>
     </>
   );

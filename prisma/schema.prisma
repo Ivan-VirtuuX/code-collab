@@ -8,48 +8,111 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  login        String    @unique
-  bio          String
-  passwordHash String?
-  avatarUrl    String
-  githubUrl    String
-  ratingPoints Int
-  location     String
-  Like         Like[]
-  Comment      Comment[]
-  Collab       Collab[]
-  createdAt    DateTime
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  login            String             @unique
+  bio              String
+  passwordHash     String?
+  avatarUrl        String
+  githubUrl        String
+  ratingPoints     Int
+  location         String
+  comments         Comment[]
+  collabs          Collab[]
+  collabLikes      CollabLike[]
+  commentLikes     CommentLike[]
+  commentReplies   CommentReply[]
+  createdAt        DateTime           @default(now())
+  CommentReplyLike CommentReplyLike[]
+  View             View[]
+  pointsHistory    PointsHistory[]
 }
 
 model Collab {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  authorId   String    @db.ObjectId
-  author     User      @relation(fields: [authorId], references: [id])
-  comments   Comment[]
-  stack      String[]
-  title      String
-  body       Json
-  viewsCount Int
-  tags       String[]
-  createdAt  DateTime
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  authorId      String          @db.ObjectId
+  author        User            @relation(fields: [authorId], references: [id])
+  comments      Comment[]
+  likes         CollabLike[]
+  stack         String[]
+  title         String
+  body          Json
+  textContent   String
+  viewsCount    Int
+  tags          String[]
+  createdAt     DateTime        @default(now())
+  CommentReply  CommentReply[]
+  views         View[]
+  PointsHistory PointsHistory[]
 }
 
-model Comment {
+model CollabLike {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   authorId  String   @db.ObjectId
   author    User     @relation(fields: [authorId], references: [id])
-  likes     Like[]
   collabId  String   @db.ObjectId
-  Collab    Collab   @relation(fields: [collabId], references: [id])
-  createdAt DateTime
+  collab    Collab   @relation(fields: [collabId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
 
-model Like {
+model Comment {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String         @db.ObjectId
+  author    User           @relation(fields: [authorId], references: [id])
+  collabId  String         @db.ObjectId
+  collab    Collab         @relation(fields: [collabId], references: [id], onDelete: Cascade)
+  text      String
+  likes     CommentLike[]
+  replies   CommentReply[]
+  createdAt DateTime       @default(now())
+}
+
+model CommentLike {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   authorId  String   @db.ObjectId
   author    User     @relation(fields: [authorId], references: [id])
   commentId String   @db.ObjectId
-  Comment   Comment  @relation(fields: [commentId], references: [id])
-  createdAt DateTime
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model CommentReply {
+  id        String             @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String             @db.ObjectId
+  author    User               @relation(fields: [authorId], references: [id])
+  commentId String             @db.ObjectId
+  comment   Comment            @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  collabId  String             @db.ObjectId
+  collab    Collab             @relation(fields: [collabId], references: [id], onDelete: Cascade)
+  text      String
+  likes     CommentReplyLike[]
+  createdAt DateTime           @default(now())
+}
+
+model CommentReplyLike {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  authorId       String       @db.ObjectId
+  author         User         @relation(fields: [authorId], references: [id])
+  commentReplyId String       @db.ObjectId
+  commentReply   CommentReply @relation(fields: [commentReplyId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+}
+
+model View {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String   @db.ObjectId
+  author    User     @relation(fields: [authorId], references: [id])
+  collabId  String   @db.ObjectId
+  collab    Collab   @relation(fields: [collabId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model PointsHistory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  authorId  String   @db.ObjectId
+  author    User     @relation(fields: [authorId], references: [id])
+  collabId  String?  @db.ObjectId
+  collab    Collab?  @relation(fields: [collabId], references: [id], onDelete: Cascade)
+  eventType String
+  points    Int
+  timestamp DateTime @default(now())
 }

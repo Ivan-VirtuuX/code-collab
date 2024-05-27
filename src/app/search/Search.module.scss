@@ -1,0 +1,71 @@
+@import "@/styles/variables";
+
+.top {
+  @media (max-width: 560px) {
+    flex-direction: column;
+  }
+}
+
+.searchInput {
+  outline: 0.5px solid $gray;
+  border-radius: 15px;
+  color: $secondary;
+  font-size: 25px;
+  line-height: 30px;
+  padding: 10px 20px;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    outline: 0.5px solid $primary;
+  }
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.searchButton {
+  padding: 10px 40px;
+  color: #fff;
+  background: $primary;
+  font-size: 25px;
+  line-height: 30px;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    pointer-events: none;
+    color: $darkGrayDisabled;
+    background: $lightGrayDisabled;
+  }
+
+  &:hover {
+    background: #fff;
+    outline: 0.5px solid $primary;
+    color: $primary;
+  }
+}
+
+.changeSearchTypeButton {
+  padding: 10px 40px;
+  color: $gray;
+  font-size: 16px;
+  line-height: 19px;
+  outline: 0.5px solid $gray;
+  border-radius: 50px;
+  background: #fff;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #fff;
+    background: $primary;
+    outline: none;
+  }
+}
+
+.changeSearchTypeButtonActive {
+  color: #fff;
+  background: $primary;
+  outline: none;
+}

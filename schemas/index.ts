@@ -67,9 +67,10 @@ export const EditProfileSchema = z.object({
     ),
   githubUrl: z
     .string()
-    .url({ message: "Недействительная ссылка на GitHub" })
-    .regex(githubUrlRegex, "Недействительная ссылка на GitHub")
-    .optional(),
+    .optional()
+    .refine((value) => !value || githubUrlRegex.test(value), {
+      message: "Недействительная ссылка на GitHub",
+    }),
   bio: z
     .string()
     .max(1000, "Био должно быть максимум 1000 символов")

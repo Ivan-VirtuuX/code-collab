@@ -24,6 +24,8 @@ export async function POST(req: NextRequest) {
 
   const session = await auth();
 
+  const textContent = body.map((block: any) => block.data.text).join(" ");
+
   const collab = await prismadb.collab.create({
     data: {
       author: {
@@ -37,75 +39,43 @@ export async function POST(req: NextRequest) {
       stack,
       title,
       body,
+      textContent,
       viewsCount: 0,
       tags,
       createdAt: new Date(),
     },
   });
 
+  await prismadb.pointsHistory.create({
+    data: {
+      author: {
+        connect: {
+          login: session?.user?.login,
+        },
+      },
+      collab: {
+        connect: {
+          id: collab.id,
+        },
+      },
+      eventType: "Публикация Коллабы",
+      points: 50,
+    },
+  });
+
+  const updatedUser = await prismadb.user.update({
+    where: {
+      login: session?.user?.login,
+    },
+    data: {
+      ratingPoints: {
+        increment: 50,
+      },
+    },
+  });
+
   return NextResponse.json(
-    { collab, message: "Collab created" },
+    { collab, message: "Collab created", newUser: updatedUser },
     { status: 201 }
   );
 }
-
-// export async function POST(req: NextRequest) {
-//   // const token: any = await getToken({ req, raw: true });
-//   //
-//   // if (!token) {
-//   //   return new NextResponse("Unauthorized", { status: 403 });
-//   // }
-//   //
-//   // const body = JSON.stringify(await req.json());
-//   //
-//   // const response = await fetch("api/collab/", {
-//   //   method: "POST",
-//   //   headers: {
-//   //     "Content-Type": "application/json",
-//   //     Authorization: `Bearer ${token}`,
-//   //   },
-//   //   body,
-//   // });
-//   //
-//   // const result = await response.json();
-//   //
-//   // console.log("result: ", result);
-//   //
-//   // if (response.ok) {
-//   //   try {
-//   //     return NextResponse.json(result);
-//   //   } catch (error) {
-//   //     console.log("error parsing response", error);
-//   //     return NextResponse.json(undefined);
-//   //   }
-//   // } else {
-//   //   return NextResponse.json({
-//   //     error: result.error?.message || "An unknown error occurred",
-//   //   });
-//   // }
-//   // if (!session) {
-//   //   return res.status(401).json({ error: "Unauthorized" });
-//   // }
-//   // const { stack, title, body, tags } = req.body;
-//   // //
-//   // try {
-//   //   const collab = await prismadb.collab.create({
-//   //     data: {
-//   //       authorId: session.user.id,
-//   //       comments: undefined,
-//   //       stack,
-//   //       title,
-//   //       body,
-//   //       viewsCount: 0,
-//   //       tags,
-//   //     },
-//   //   });
-//   //
-//   //   return NextResponse.json({ collab }, { status: 201 });
-//   // } catch (error) {
-//   //   return NextResponse.json(
-//   //     { error: "Error creating collab" },
-//   //     { status: 500 }
-//   //   );
-//   // }
-// }

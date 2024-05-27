@@ -34,5 +34,17 @@ export const POST = async (req: Request) => {
     },
   });
 
+  await prismadb.pointsHistory.create({
+    data: {
+      author: {
+        connect: {
+          login: newUser.login,
+        },
+      },
+      eventType: "Регистрация на сайте",
+      points: 500,
+    },
+  });
+
   return NextResponse.json(newUser);
 };
