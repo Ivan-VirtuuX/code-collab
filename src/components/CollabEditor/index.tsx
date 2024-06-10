@@ -69,7 +69,7 @@ const Editor: React.FC<EditorProps> = ({
                       },
                     };
                   } catch (err) {
-                    console.warn(err);
+                    console.error(err);
                   } finally {
                     setIsLoading(false);
                   }

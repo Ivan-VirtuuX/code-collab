@@ -77,10 +77,6 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     }
   };
 
-  React.useEffect(() => {
-    console.log(commentLikes);
-  }, [commentLikes]);
-
   const onClickLike = async (likeId?: string) => {
     try {
       if (isLiked) {
@@ -108,7 +104,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
         setCommentLikes([...commentLikes, { id: like.id, author }]);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       setIsSubmitting(false);
     }
