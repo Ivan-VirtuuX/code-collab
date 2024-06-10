@@ -1,7 +1,13 @@
 import { IRank } from "@/types/Rank";
 
 export const ranks: IRank[] = [
-  { id: 1, name: "Новичок", color: "#2D3436", minPoints: 0, maxPoints: 2000 },
+  {
+    id: 1,
+    name: "Новичок",
+    color: "#2D3436",
+    minPoints: 1000,
+    maxPoints: 2000,
+  },
   {
     id: 2,
     name: "Исследователь",

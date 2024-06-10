@@ -53,24 +53,24 @@ export const StackModal: React.FC<StackModalProps> = ({
               </div>
               <div className={styles.iconList}>
                 {stackIcons.map(({ name, icon }) => (
-                  <div
-                    key={name}
-                    onClick={() => handleIconClick(name)}
-                    className={styles.iconContainer}
-                    style={
-                      selectedIcons.includes(name)
-                        ? {
-                            outline: "1px solid #007BFFFF",
-                          }
-                        : {}
-                    }
-                  >
-                    <img
-                      src={icon}
-                      alt={name}
-                      onClick={() => handleIconClick(name)}
-                      className={styles.icon}
-                    />
+                  <div key={name} onClick={() => handleIconClick(name)}>
+                    <div
+                      className={styles.iconContainer}
+                      style={
+                        selectedIcons.includes(name)
+                          ? {
+                              outline: "1px solid #007BFFFF",
+                            }
+                          : {}
+                      }
+                    >
+                      <img
+                        src={icon}
+                        alt={name}
+                        onClick={() => handleIconClick(name)}
+                        className={styles.icon}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
