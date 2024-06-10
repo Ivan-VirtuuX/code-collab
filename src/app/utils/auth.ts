@@ -101,5 +101,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.JWT_SECRET,
 } satisfies NextAuthOptions;
+
 export const auth = () => getServerSession(authOptions);
+
 export default authOptions;

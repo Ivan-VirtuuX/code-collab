@@ -15,9 +15,7 @@ export const CollabsList: React.FC<CollabsListProps> = ({
   authUser,
 }) => {
   const handleDelete = async (id: string) => {
-    if (setCollabs) {
-      setCollabs(collabs.filter((c) => c.id !== id));
-    }
+    if (setCollabs) setCollabs(collabs.filter((c) => c.id !== id));
   };
 
   return (
@@ -29,6 +27,7 @@ export const CollabsList: React.FC<CollabsListProps> = ({
             {...collab}
             authUser={authUser}
             handleDelete={setCollabs && handleDelete}
+            canDelete
           />
         ))}
     </>

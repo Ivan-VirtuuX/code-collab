@@ -18,7 +18,6 @@ model User {
   location         String
   comments         Comment[]
   collabs          Collab[]
-  collabLikes      CollabLike[]
   commentLikes     CommentLike[]
   commentReplies   CommentReply[]
   createdAt        DateTime           @default(now())
@@ -32,7 +31,6 @@ model Collab {
   authorId      String          @db.ObjectId
   author        User            @relation(fields: [authorId], references: [id])
   comments      Comment[]
-  likes         CollabLike[]
   stack         String[]
   title         String
   body          Json
@@ -43,15 +41,6 @@ model Collab {
   CommentReply  CommentReply[]
   views         View[]
   PointsHistory PointsHistory[]
-}
-
-model CollabLike {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  authorId  String   @db.ObjectId
-  author    User     @relation(fields: [authorId], references: [id])
-  collabId  String   @db.ObjectId
-  collab    Collab   @relation(fields: [collabId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
 }
 
 model Comment {

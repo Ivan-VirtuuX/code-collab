@@ -3,6 +3,7 @@ import { ICollab } from "@/types/Collab";
 import { IComment } from "@/types/Comment";
 import { ICommentReply } from "@/types/CommentReply";
 import { OutputData } from "@editorjs/editorjs";
+import { ILike } from "@/types/Like";
 
 export const CollabApi = (instance: AxiosInstance) => ({
   async create(
@@ -113,17 +114,20 @@ export const CollabApi = (instance: AxiosInstance) => ({
     collabId?: string,
     commentId?: string
   ) {
-    if (isReply)
-      await instance.post(
+    if (isReply) {
+      const { data } = await instance.post(
         `collab/${collabId}/comments/${commentId}/replies/${replyCommentId}/likes`
       );
-    else
-      await instance.post(
+      return data.like as ILike;
+    } else {
+      const { data } = await instance.post(
         `collab/${collabId}/comments/${replyCommentId}/likes`,
         {
           userId: authorId,
         }
       );
+      return data.like as ILike;
+    }
   },
 
   async incrementViews(id: string, login: string) {

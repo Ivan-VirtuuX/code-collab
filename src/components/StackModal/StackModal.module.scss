@@ -22,7 +22,6 @@
 
   @media (max-width: 500px) {
     width: calc(100vw - 20px);
-    height: 90vh;
   }
 }
 
@@ -65,10 +64,7 @@
   gap: 10px;
   overflow: auto;
   padding: 2px;
-
-  @media (max-width: 500px) {
-    height: 65vh;
-  }
+  height: calc(90vh - 100px);
 }
 
 .iconContainer {

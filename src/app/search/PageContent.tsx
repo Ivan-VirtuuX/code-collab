@@ -2,10 +2,11 @@
 
 import styles from "./Search.module.scss";
 import React, { useState } from "react";
-import { IUser } from "@/types/User"; // Предполагается, что у вас есть тип IUser
+import { IUser } from "@/types/User";
 import { ICollab } from "@/types/Collab";
 import { CollabsList } from "@/components/CollabsList";
-import { Api } from "@/api"; // Предполагается, что у вас есть тип ICollab
+import { Api } from "@/api";
+import { UserInfo } from "@/components/UserInfo";
 
 export const PageContent = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,6 +32,10 @@ export const PageContent = () => {
     }
   };
 
+  React.useEffect(() => {
+    handleSearch();
+  }, [searchType]);
+
   return (
     <div>
       <div className="flex flex-col gap-5">
@@ -43,6 +48,12 @@ export const PageContent = () => {
             placeholder={`Поиск ${
               searchType === "user" ? "пользователей" : "коллаб"
             }`}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSearch();
+              }
+            }}
           />
           <button
             className={styles.searchButton}
@@ -71,19 +82,25 @@ export const PageContent = () => {
           </button>
         </div>
       </div>
-      <div className={`${styles.results} mt-10`}>
+      <div className="mt-10 pb-5">
         {results?.users?.length !== 0 || results?.collabs?.length !== 0 ? (
           searchType === "user" ? (
-            results.users.map((user) => (
-              <div key={user.id} className={styles.resultItem}>
-                {user.login}
-              </div>
-            ))
+            <div className="flex flex-col gap-5">
+              {results.users.map((user) => (
+                <UserInfo key={user.id} {...user} />
+              ))}
+            </div>
           ) : (
-            <CollabsList collabs={results.collabs} />
+            <div className="flex flex-col gap-5">
+              <CollabsList collabs={results.collabs} />
+            </div>
           )
         ) : (
-          <p>Ничего не найдено</p>
+          <div>
+            <p className={styles.noResultsText}>
+              По данному запросу ничего не найдено
+            </p>
+          </div>
         )}
       </div>
     </div>

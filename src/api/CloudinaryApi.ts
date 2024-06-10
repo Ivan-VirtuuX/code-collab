@@ -5,9 +5,12 @@ export type ApiReturnType = {
   images: ReturnType<typeof Cloudinary>;
 };
 
+export const cloudinaryBaseURL =
+  "https://api.cloudinary.com/v1_1/virtuux/image";
+
 export const CloudinaryApi = (): ApiReturnType => {
   const instance = axios.create({
-    baseURL: "https://api.cloudinary.com/v1_1/virtuux/image",
+    baseURL: cloudinaryBaseURL,
   });
 
   const apis = {

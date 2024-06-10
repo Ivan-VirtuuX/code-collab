@@ -76,6 +76,7 @@ export const CollabPageContent: React.FC<CollabPageContentProps> = ({
       const newComment = await Api().collab.addComment(collab.id, commentText);
 
       setCollabComments([...collabComments, newComment]);
+      setVisibleCommentsCount(visibleCommentsCount + 1);
     }
 
     setReplyComment(undefined);
@@ -106,8 +107,14 @@ export const CollabPageContent: React.FC<CollabPageContentProps> = ({
             }
           />
         ))}
+        {collabComments.length === 0 && (
+          <div>
+            <p className={styles.noCommentsTitle}>Список пуст</p>
+            <p className={styles.noCommentsText}>Оставьте комментарий первым</p>
+          </div>
+        )}
       </div>
-      {visibleCommentsCount < totalComments && (
+      {visibleCommentsCount < totalComments && totalComments !== 1 && (
         <button className={styles.showMoreButton} onClick={fetchMoreComments}>
           Показать больше...
         </button>

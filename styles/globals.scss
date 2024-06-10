@@ -1,4 +1,4 @@
-@import "variables.scss";
+@import "variables";
 
 @tailwind base;
 @tailwind components;
@@ -24,9 +24,9 @@ main {
   padding-bottom: 50px !important;
 }
 
+// Editor.js
 .ce-block__content {
   max-width: 100% !important;
-  margin-left: 50px;
 }
 
 .ce-toolbar__content {
@@ -46,4 +46,23 @@ main {
     color: $gray !important;
     font-size: 20px !important;
   }
+}
+
+.ce-popover.ce-popover--opened {
+  @media (max-width: 650px) {
+    bottom: calc(60px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+.cdx-input.image-tool__caption {
+  display: none !important;
+}
+
+.image-tool__image-picture {
+  border-radius: 15px !important;
+  width: 50% !important;
+}
+
+.ce-toolbar__actions.ce-toolbar__actions--opened {
+  right: 0 !important;
 }

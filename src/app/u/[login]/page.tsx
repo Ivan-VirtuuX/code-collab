@@ -152,9 +152,14 @@ const User = async ({ params }: { params: { login: string } }) => {
             </Link>
           )}
         </div>
-        <div className="flex flex-col gap-7 mt-12 my-10">
-          <PageContent initialCollabs={collabs} />
-        </div>
+
+        {collabs.length !== 0 ? (
+          <div className="flex flex-col gap-7 mt-12 my-10">
+            <PageContent initialCollabs={collabs} authUser={session?.user} />{" "}
+          </div>
+        ) : (
+          <p className={styles.noCollabsText}>Список коллаб пуст</p>
+        )}
       </div>
     </main>
   );

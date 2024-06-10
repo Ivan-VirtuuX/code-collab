@@ -59,7 +59,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
         callbackUrl: "/",
       });
 
-      router.push("/");
+      router.push("/collabs");
     } else {
       setError("Логин занят");
     }

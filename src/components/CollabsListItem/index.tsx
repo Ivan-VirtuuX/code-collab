@@ -43,6 +43,7 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const handleContextMenu = (e: React.MouseEvent) => {
+    console.log(author.id, authUser?.id);
     if (canDelete && author.id === authUser?.id) {
       e.preventDefault();
       setContextMenu({ x: e.pageX, y: e.pageY });

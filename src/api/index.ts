@@ -9,11 +9,18 @@ export type ApiReturnType = {
   collab: ReturnType<typeof CollabApi>;
 };
 
+enum apiUrls {
+  production = "https://code-collab-six.vercel.app/api",
+  development = "http://localhost:3000/api",
+}
+
+const baseURL = apiUrls[process.env.NODE_ENV as keyof typeof apiUrls];
+
 export const Api = (
   ctx?: NextPageContext | GetServerSidePropsContext
 ): ApiReturnType => {
   const instance = axios.create({
-    baseURL: "https://code-collab-six.vercel.app/api",
+    baseURL,
   });
 
   const apis = {

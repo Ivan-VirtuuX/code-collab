@@ -13,7 +13,7 @@ export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
   return {
-    title: `Тег #${params.tag}`,
+    title: `Тег #${decodeURIComponent(params.tag)}`,
     icons: {
       icon: "/favicons/tag-page.svg",
     },
@@ -21,12 +21,14 @@ export async function generateMetadata({
 }
 
 const Tag = async ({ params }: { params: { tag: string } }) => {
-  const collabs = await Api().collab.getManyByTag(params.tag);
+  const collabs = await Api().collab.getManyByTag(
+    decodeURIComponent(params.tag)
+  );
 
   return (
     <main className="container">
       <div className="mt-12 mb-8">
-        <PageTitle title={`Тег #${params.tag}`}>
+        <PageTitle title={`Тег #${decodeURIComponent(params.tag)}`}>
           <TagIcon />
         </PageTitle>
       </div>

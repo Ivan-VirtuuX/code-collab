@@ -10,6 +10,7 @@ interface LikeButtonProps {
   handleClick: (likeId?: string) => void;
   likeId?: string;
   isAuth?: boolean;
+  isSubmitting: boolean;
 }
 
 export const LikeButton: React.FC<LikeButtonProps> = ({
@@ -18,20 +19,23 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
   handleClick,
   likeId,
   isAuth,
+  isSubmitting,
 }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className={styles.error}
         layout
         animate={{ opacity: 1, x: 0, scale: 1 }}
         exit={{ opacity: 0, x: 200, scale: 1.2 }}
         transition={{ duration: 0.6, type: "spring" }}
       >
         <div
-          className="flex items-center cursor-pointer"
+          className="flex items-center"
           onClick={() => handleClick(likeId)}
-          style={{ pointerEvents: isAuth ? "auto" : "none" }}
+          style={{
+            pointerEvents: isSubmitting ? "none" : "auto",
+            cursor: isSubmitting || !isAuth ? "none" : "pointer",
+          }}
         >
           {isLiked ? (
             <HeartIcon color="#F31222" />

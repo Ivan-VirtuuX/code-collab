@@ -13,6 +13,8 @@ import { IUser } from "@/types/User";
 import { ICommentReply } from "@/types/CommentReply";
 import { Api } from "@/api";
 import ContextMenu from "@/components/ContextMenu";
+import { AnimatePresence, motion } from "framer-motion";
+import { ILike } from "@/types/Like";
 
 interface CommentItemProps extends IComment {
   isCommentLiked: boolean;
@@ -47,10 +49,13 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   const [commentReplies, setCommentReplies] = React.useState<ICommentReply[]>(
     []
   );
+  const [commentLikes, setCommentLikes] = React.useState<ILike[]>(likes);
   const [contextMenu, setContextMenu] = React.useState<{
     x: number;
     y: number;
   } | null>(null);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const handleContextMenu = (e: React.MouseEvent) => {
@@ -72,29 +77,40 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     }
   };
 
+  React.useEffect(() => {
+    console.log(commentLikes);
+  }, [commentLikes]);
+
   const onClickLike = async (likeId?: string) => {
-    if (isLiked) {
-      setIsLiked(false);
-      setLikesCount(likesCount - 1);
+    try {
+      if (isLiked) {
+        setIsSubmitting(true);
 
-      await Api().collab.removeCommentLike(
-        id,
-        isReply,
-        likeId,
-        collabId,
-        commentId
-      );
-    } else {
-      setIsLiked(true);
-      setLikesCount(likesCount + 1);
+        setIsLiked(false);
+        setLikesCount(likesCount - 1);
 
-      await Api().collab.addCommentLike(
-        id,
-        isReply,
-        author?.id,
-        collabId,
-        commentId
-      );
+        await Api().collab.removeCommentLike(id, isReply, likeId, collabId, id);
+
+        setCommentLikes([...commentLikes.filter((like) => like.id !== likeId)]);
+      } else {
+        setIsSubmitting(true);
+
+        setIsLiked(true);
+        setLikesCount(likesCount + 1);
+
+        const like = await Api().collab.addCommentLike(
+          id,
+          isReply,
+          author?.id,
+          collabId,
+          commentId
+        );
+        setCommentLikes([...commentLikes, { id: like.id, author }]);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -103,71 +119,82 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   }, [replies]);
 
   return (
-    <div
-      className={styles.container}
-      onContextMenu={handleContextMenu}
-      ref={containerRef}
-    >
-      <div>
-        <div
-          className={`${styles.top} flex flex-wrap-reverse justify-between gap-2`}
-        >
-          <UserInfo {...author} />
+    <AnimatePresence mode="popLayout">
+      <motion.div
+        className={styles.container}
+        layout
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, x: 0, scale: 1 }}
+        exit={{ opacity: 0, x: 200, scale: 1.2 }}
+        transition={{ duration: 0.6, type: "spring" }}
+      >
+        <div onContextMenu={handleContextMenu} ref={containerRef}>
           <div>
-            <CreatedAtBlock createdAt={createdAt} />
-          </div>
-        </div>
-        <p className={styles.text}>{text}</p>
-        <div
-          className={`flex items-center ${
-            isReply ? "justify-end" : "justify-between"
-          } `}
-        >
-          {!isReply && (
-            <div className="flex items-center gap-4">
-              <div className="flex items-center">
-                <ReplyIcon />
-                <span className={styles.repliesText}>
-                  Ответов: {commentReplies?.length || 0}
-                </span>
+            <div
+              className={`${styles.top} flex flex-wrap-reverse justify-between gap-2`}
+            >
+              <UserInfo {...author} />
+              <div>
+                <CreatedAtBlock createdAt={createdAt} />
               </div>
             </div>
-          )}
-          <div className="flex items-center gap-4">
-            {!isReply && !!user && user?.id !== author?.id && (
-              <button
-                className={styles.replyButton}
-                onClick={() => handleClickReply({ author, text, id })}
-              >
-                Ответить
-              </button>
-            )}
-            <LikeButton
-              isAuth={!!user}
-              isLiked={isLiked}
-              handleClick={onClickLike}
-              likesCount={likesCount}
-              likeId={likes?.find((like) => like?.author?.id === user?.id)?.id}
+            <p className={styles.text}>{text}</p>
+            <div
+              className={`flex items-center ${
+                isReply ? "justify-end" : "justify-between"
+              } `}
+            >
+              {!isReply && (
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center">
+                    <ReplyIcon />
+                    <span className={styles.repliesText}>
+                      Ответов: {commentReplies?.length || 0}
+                    </span>
+                  </div>
+                </div>
+              )}
+              <div className="flex items-center gap-4">
+                {!isReply && !!user && user?.id !== author?.id && (
+                  <button
+                    className={styles.replyButton}
+                    onClick={() => handleClickReply({ author, text, id })}
+                  >
+                    Ответить
+                  </button>
+                )}
+                <LikeButton
+                  isSubmitting={isSubmitting}
+                  isAuth={!!user}
+                  isLiked={isLiked}
+                  handleClick={onClickLike}
+                  likesCount={likesCount}
+                  likeId={
+                    commentLikes?.find((like) => like?.author?.id === user?.id)
+                      ?.id
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div className="mt-5 mb-4">
+            <CommentReplies
+              replies={commentReplies}
+              user={user}
+              handleClickReply={(comment) => handleClickReply(comment)}
+              initialVisibleReplies={2}
             />
           </div>
+          {contextMenu && (
+            <ContextMenu
+              x={contextMenu.x}
+              y={contextMenu.y}
+              onClose={() => setContextMenu(null)}
+              onClickDelete={onClickDeleteComment}
+            />
+          )}
         </div>
-      </div>
-      <div className="mt-5 mb-4">
-        <CommentReplies
-          replies={commentReplies}
-          user={user}
-          handleClickReply={(comment) => handleClickReply(comment)}
-          initialVisibleReplies={2}
-        />
-      </div>
-      {contextMenu && (
-        <ContextMenu
-          x={contextMenu.x}
-          y={contextMenu.y}
-          onClose={() => setContextMenu(null)}
-          onClickDelete={onClickDeleteComment}
-        />
-      )}
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };

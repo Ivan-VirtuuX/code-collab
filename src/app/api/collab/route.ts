@@ -1,6 +1,7 @@
 import prismadb from "@/lib/prisma/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/app/utils/auth";
+import { OutputBlockData } from "@editorjs/editorjs";
 
 export async function GET(req: NextRequest) {
   const data = await prismadb.collab.findMany({
@@ -24,7 +25,9 @@ export async function POST(req: NextRequest) {
 
   const session = await auth();
 
-  const textContent = body.map((block: any) => block.data.text).join(" ");
+  const textContent = body
+    .map((block: OutputBlockData["data"]) => block.data.text)
+    .join(" ");
 
   const collab = await prismadb.collab.create({
     data: {

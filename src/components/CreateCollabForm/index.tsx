@@ -7,7 +7,6 @@ import { PageTitle } from "@/components/PageTitle";
 import { CreateIcon } from "@/ui/CreateIcon";
 
 import styles from "./CreateCollabForm.module.scss";
-import { IUser } from "@/types/User";
 import { AnimatePresence, motion } from "framer-motion";
 import { getStackIcon } from "@/helpers/getStackIcon";
 
@@ -19,14 +18,11 @@ import { Api } from "@/api";
 
 const Editor = dynamic(() => import("@/components/CollabEditor"), {
   ssr: false,
+  loading: () => <div>Загрузка редактора...</div>,
 });
 
-interface CreateCollabFormProps {
-  user: IUser | undefined;
-}
-
-export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
-  const [isImageSubmitting, setIsImageSubmitting] = React.useState(false);
+export const CreateCollabForm = () => {
+  const [isImageUploading, setIsImageUploading] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [blocks, setBlocks] = React.useState<OutputData["blocks"]>([]);
   const [tags, setTags] = React.useState<string[]>([]);
@@ -34,12 +30,14 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [stackIcons, setStackIcons] = React.useState<string[]>([]);
   const [title, setTitle] = React.useState("");
+  const [editorError, setEditorError] = React.useState<string>("");
 
   const { data: session, update } = useSession();
 
   const userRatingPoints = session?.user?.ratingPoints || 0;
 
   const openModal = () => setIsModalOpen(true);
+
   const closeModal = () => setIsModalOpen(false);
 
   const router = useRouter();
@@ -51,14 +49,20 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
       setIsLoading(true);
 
       if (blocks.length) {
-        await Api().collab.create(stackIcons, title, blocks, tags);
+        const collab = await Api().collab.create(
+          stackIcons,
+          title,
+          blocks,
+          tags
+        );
+
+        router.push(`/collabs/${collab.id}`);
 
         await update({ ...session, ratingPoints: userRatingPoints + 50 });
       }
     } catch (err) {
       console.error(err);
     } finally {
-      router.push("/collabs");
       setIsLoading(false);
     }
   };
@@ -108,9 +112,27 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
             />
           </div>
           <div>
+            {editorError && (
+              <AnimatePresence>
+                <motion.div
+                  className={styles.editorError}
+                  layout
+                  initial={{ opacity: 0, x: -400, scale: 0.5 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 200, scale: 1.2 }}
+                  transition={{ duration: 0.6, type: "spring" }}
+                >
+                  {editorError}
+                </motion.div>
+              </AnimatePresence>
+            )}
             <p className={styles.title}>Текст</p>
             <div className={styles.editor}>
-              <Editor onChange={onChangeEditorFields} />
+              <Editor
+                onChange={onChangeEditorFields}
+                setIsLoading={setIsImageUploading}
+                setEditorError={setEditorError}
+              />
             </div>
           </div>
           <div>
@@ -208,7 +230,7 @@ export const CreateCollabForm: React.FC<CreateCollabFormProps> = ({ user }) => {
             type="submit"
             className={styles.saveButton}
             disabled={
-              isImageSubmitting ||
+              isImageUploading ||
               !blocks.length ||
               isLoading ||
               blocks.filter((block) => block.type === "image").length > 10 ||

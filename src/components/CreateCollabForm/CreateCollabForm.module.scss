@@ -26,6 +26,22 @@
   }
 }
 
+.editorError {
+  background: #f6d346;
+  border: 5px solid #ffebc3;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 20px;
+  width: fit-content;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: clamp(10px, 5vw, 20px);
+  }
+}
+
 .addTagContainer {
   width: fit-content;
   margin-bottom: 20px;

@@ -5,6 +5,18 @@
   margin-bottom: 40px;
 }
 
+.noCommentsTitle {
+  color: $secondary;
+  font-weight: 700;
+  font-size: 25px;
+}
+
+.noCommentsText {
+  color: $green;
+  font-size: 18px;
+  line-height: 19px;
+}
+
 .commentsBlock {
   outline: 0.5px solid $gray;
   border-radius: 15px;

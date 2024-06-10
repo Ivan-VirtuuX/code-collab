@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   },
 };
 
-const Register: NextPage = () => {
+const Login: NextPage = () => {
   return (
     <main className="container">
       <AuthForm type="login" />
@@ -16,4 +16,4 @@ const Register: NextPage = () => {
   );
 };
 
-export default Register;
+export default Login;
