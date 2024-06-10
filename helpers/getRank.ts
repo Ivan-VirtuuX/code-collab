@@ -5,7 +5,7 @@ export const ranks: IRank[] = [
     id: 1,
     name: "Новичок",
     color: "#2D3436",
-    minPoints: 1000,
+    minPoints: 0,
     maxPoints: 2000,
   },
   {

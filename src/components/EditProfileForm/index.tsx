@@ -22,13 +22,9 @@ interface EditProfileFormProps {
 
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
   const [error, setError] = React.useState("");
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [avatar, setAvatar] = React.useState(user?.avatarUrl);
 
-  const { data: session, status, update } = useSession();
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const { update } = useSession();
 
   const router = useRouter();
 
@@ -58,6 +54,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
         location,
         bio,
       });
+      router.push(`/u/${login}`);
     } catch (err) {
       console.error(err);
 

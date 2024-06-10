@@ -26,10 +26,13 @@ export const RankListItem: React.FC<RankListItemProps> = ({
         </p>
         <hr className={styles.line} style={{ borderColor: color }} />
         {Number(minPoints) < 10000 ? (
-          <p className={`${styles.ratingPoints} text-center`}>
-            {minPoints === 1000 ? "до" : "для"} {formatRatingPoints(minPoints)}{" "}
-            RP
-          </p>
+          minPoints !== 0 ? (
+            <p className={`${styles.ratingPoints} text-center`}>
+              для {formatRatingPoints(minPoints)} RP
+            </p>
+          ) : (
+            <p className={`${styles.ratingPoints} text-center`}>до 1.000 RP</p>
+          )
         ) : (
           <p className={`${styles.ratingPoints} text-center`}>
             {formatRatingPoints(minPoints)} RP и более

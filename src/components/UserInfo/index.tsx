@@ -11,11 +11,8 @@ import Link from "next/link";
 interface UserInfoProps extends IUser {}
 
 export const UserInfo: React.FC<UserInfoProps> = ({
-  createdAt,
   ratingPoints,
   avatarUrl,
-  githubUrl,
-  location,
   login,
 }) => {
   const color = getRank(ratingPoints).color;
