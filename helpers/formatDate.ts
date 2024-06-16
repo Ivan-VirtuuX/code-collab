@@ -1,5 +1,10 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const formatDate = (
   date?: Date,
@@ -7,7 +12,9 @@ export const formatDate = (
 ): string => {
   dayjs.locale("ru");
 
+  const userTimeZone = dayjs.tz.guess();
+
   return type === "short"
-    ? dayjs(date).format("DD MMM. YYYY [г.]")
-    : dayjs(date).format("DD MMM. YYYY [г.] в H:mm");
+    ? dayjs(date).tz(userTimeZone).format("DD MMM. YYYY [г.]")
+    : dayjs(date).tz(userTimeZone).format("DD MMM. YYYY [г.] в H:mm");
 };
