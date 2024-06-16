@@ -12,9 +12,10 @@ export const formatDate = (
 ): string => {
   dayjs.locale("ru");
 
+  const utcDate = dayjs.utc(date);
   const userTimeZone = dayjs.tz.guess();
 
   return type === "short"
-    ? dayjs(date).tz(userTimeZone).format("DD MMM. YYYY [г.]")
-    : dayjs(date).tz(userTimeZone).format("DD MMM. YYYY [г.] в H:mm");
+    ? utcDate.tz(userTimeZone).format("DD MMM. YYYY [г.]")
+    : utcDate.tz(userTimeZone).format("DD MMM. YYYY [г.] в H:mm");
 };
