@@ -28,6 +28,17 @@ export const POST = async (
     },
   });
 
+  await prismadb.user.update({
+    where: {
+      login: session?.user?.login,
+    },
+    data: {
+      ratingPoints: {
+        increment: 5,
+      },
+    },
+  });
+
   const comment = await prismadb.commentReply.create({
     data: {
       author: {

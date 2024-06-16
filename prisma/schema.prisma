@@ -103,5 +103,5 @@ model PointsHistory {
   collab    Collab?  @relation(fields: [collabId], references: [id], onDelete: Cascade)
   eventType String
   points    Int
-  timestamp DateTime @default(now())
+  createdAt DateTime @default(now())
 }

@@ -15,6 +15,7 @@ import { Api } from "@/api";
 import ContextMenu from "@/components/ContextMenu";
 import { AnimatePresence, motion } from "framer-motion";
 import { ILike } from "@/types/Like";
+import { useSession } from "next-auth/react";
 
 interface CommentItemProps extends IComment {
   isCommentLiked: boolean;
@@ -25,7 +26,10 @@ interface CommentItemProps extends IComment {
   replyComment?: any;
   commentId?: string;
   handleDelete?: (id: string) => void;
+  handleDeleteReply?: (id: string) => void;
   canDelete?: boolean;
+  setCollabComments?: React.Dispatch<React.SetStateAction<IComment[]>>;
+  collabComments?: IComment[];
 }
 
 export const CommentItem: React.FC<CommentItemProps> = ({
@@ -42,7 +46,10 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   collabId,
   commentId,
   handleDelete,
+  handleDeleteReply,
   canDelete = true,
+  setCollabComments,
+  collabComments,
 }) => {
   const [isLiked, setIsLiked] = React.useState(isCommentLiked);
   const [likesCount, setLikesCount] = React.useState(likes?.length || 0);
@@ -58,6 +65,10 @@ export const CommentItem: React.FC<CommentItemProps> = ({
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
+  const { data: session, update } = useSession();
+
+  const userRatingPoints = session?.user?.ratingPoints || 0;
+
   const handleContextMenu = (e: React.MouseEvent) => {
     if (canDelete && author.id === user?.id) {
       e.preventDefault();
@@ -67,11 +78,15 @@ export const CommentItem: React.FC<CommentItemProps> = ({
 
   const onClickDeleteComment = async () => {
     try {
-      if (handleDelete) handleDelete(id);
-
       setContextMenu(null);
 
-      await Api().user.deleteComment(collabId, id, user?.login);
+      if (isReply) {
+        if (handleDeleteReply) handleDeleteReply(id);
+        await Api().user.deleteCommentReply(collabId, id, user?.login);
+      } else {
+        if (handleDelete) handleDelete(id);
+        await Api().user.deleteComment(collabId, id, user?.login);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -102,6 +117,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           commentId
         );
         setCommentLikes([...commentLikes, { id: like.id, author }]);
+
+        await update({ ...session, ratingPoints: userRatingPoints + 2 });
       }
     } catch (err) {
       console.error(err);
@@ -179,6 +196,12 @@ export const CommentItem: React.FC<CommentItemProps> = ({
               user={user}
               handleClickReply={(comment) => handleClickReply(comment)}
               initialVisibleReplies={2}
+              setCollabComments={
+                setCollabComments as React.Dispatch<
+                  React.SetStateAction<IComment[]>
+                >
+              }
+              collabComments={collabComments as IComment[]}
             />
           </div>
           {contextMenu && (

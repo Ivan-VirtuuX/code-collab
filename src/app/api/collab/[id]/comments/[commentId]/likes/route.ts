@@ -37,7 +37,18 @@ export const POST = async (
           },
         },
         eventType: "Получение лайка на комментарий",
-        points: 5,
+        points: 2,
+      },
+    });
+
+    await prismadb.user.update({
+      where: {
+        login: session?.user?.login,
+      },
+      data: {
+        ratingPoints: {
+          increment: 2,
+        },
       },
     });
   }

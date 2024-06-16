@@ -80,6 +80,34 @@ export const POST = async (
     },
   });
 
+  await prismadb.pointsHistory.create({
+    data: {
+      author: {
+        connect: {
+          id: session?.user?.id,
+        },
+      },
+      collab: {
+        connect: {
+          id,
+        },
+      },
+      eventType: "Комментарий к Коллабе",
+      points: 5,
+    },
+  });
+
+  await prismadb.user.update({
+    where: {
+      login: session?.user?.login,
+    },
+    data: {
+      ratingPoints: {
+        increment: 5,
+      },
+    },
+  });
+
   return NextResponse.json(
     {
       comment: { ...comment, likes: [], author: session?.user },

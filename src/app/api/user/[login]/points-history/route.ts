@@ -25,7 +25,7 @@ export const GET = async (
       eventType: true,
     },
     orderBy: {
-      timestamp: "desc",
+      createdAt: "desc",
     },
   });
 

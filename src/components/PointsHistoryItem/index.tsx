@@ -22,6 +22,7 @@ export const PointsHistoryItem: React.FC<PointsHistoryItemProps> = ({
         className={`${styles.right} flex items-center justify-between gap-2`}
       >
         {eventType === "Публикация Коллабы" ||
+        eventType === "Комментарий к Коллабе" ||
         eventType === "Получение лайка на комментарий" ? (
           <Link href={`/collabs/${collab?.id}`}>
             <span className={styles.pointsHistoryItemText}>{eventType}</span>

@@ -8,6 +8,7 @@ import { IUser } from "@/types/User";
 import { ICollab } from "@/types/Collab";
 import { SendIcon } from "@/ui/SendIcon";
 import { Api } from "@/api";
+import { useSession } from "next-auth/react";
 
 interface CollabPageContentProps {
   initialComments: IComment[];
@@ -35,6 +36,10 @@ export const CollabPageContent: React.FC<CollabPageContentProps> = ({
     React.useState<Pick<IComment, "author" | "text" | "id">>();
 
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const { data: session, update } = useSession();
+
+  const userRatingPoints = session?.user?.ratingPoints || 0;
 
   const limit = 5;
 
@@ -72,11 +77,15 @@ export const CollabPageContent: React.FC<CollabPageContentProps> = ({
             : comment
         )
       );
+
+      await update({ ...session, ratingPoints: userRatingPoints + 5 });
     } else {
       const newComment = await Api().collab.addComment(collab.id, commentText);
 
       setCollabComments([...collabComments, newComment]);
       setVisibleCommentsCount(visibleCommentsCount + 1);
+
+      await update({ ...session, ratingPoints: userRatingPoints + 5 });
     }
 
     setReplyComment(undefined);
@@ -102,9 +111,11 @@ export const CollabPageContent: React.FC<CollabPageContentProps> = ({
             }}
             handleDelete={(commentId) =>
               setCollabComments([
-                ...collabComments.filter((c) => c.id !== commentId),
+                ...collabComments.filter((comment) => comment.id !== commentId),
               ])
             }
+            setCollabComments={setCollabComments}
+            collabComments={collabComments}
           />
         ))}
         {collabComments.length === 0 && (

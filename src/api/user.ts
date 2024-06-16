@@ -9,6 +9,10 @@ export const UserApi = (instance: AxiosInstance) => ({
     await instance.delete(`user/${login}/comments/${commentId}`);
   },
 
+  async deleteCommentReply(id?: string, commentId?: string, login?: string) {
+    await instance.delete(`user/${login}/comments/replyComments/${commentId}`);
+  },
+
   async getCollabs(login: string) {
     const { data } = await instance.get<ICollab[]>(`user/${login}/collabs`);
 
@@ -25,6 +29,8 @@ export const UserApi = (instance: AxiosInstance) => ({
     const { data } = await instance.get<IPointsHistory[]>(
       `user/${login}/points-history`
     );
+
+    console.log(data);
 
     return data;
   },

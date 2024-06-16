@@ -4,6 +4,7 @@ import { ICommentReply } from "@/types/CommentReply";
 import { IUser } from "@/types/User";
 
 import styles from "./CommentReplies.module.scss";
+import { IComment } from "@/types/Comment";
 
 interface CommentRepliesProps {
   replies: ICommentReply[];
@@ -12,6 +13,8 @@ interface CommentRepliesProps {
     comment: Pick<ICommentReply, "author" | "text" | "id">
   ) => void;
   initialVisibleReplies: number;
+  setCollabComments: React.Dispatch<React.SetStateAction<IComment[]>>;
+  collabComments: IComment[];
 }
 
 export const CommentReplies: React.FC<CommentRepliesProps> = ({
@@ -19,6 +22,8 @@ export const CommentReplies: React.FC<CommentRepliesProps> = ({
   user,
   handleClickReply,
   initialVisibleReplies,
+  setCollabComments,
+  collabComments,
 }) => {
   const [visibleRepliesCount, setVisibleRepliesCount] = React.useState(
     initialVisibleReplies
@@ -40,6 +45,16 @@ export const CommentReplies: React.FC<CommentRepliesProps> = ({
           isCommentLiked={reply.likes.some(
             (like) => like.author.id === user?.id
           )}
+          handleDeleteReply={(replyId) =>
+            setCollabComments([
+              ...collabComments.map((comment) => ({
+                ...comment,
+                replies: comment.replies.filter(
+                  (reply) => reply.id !== replyId
+                ),
+              })),
+            ])
+          }
         />
       ))}
       {replies?.length > visibleRepliesCount && (

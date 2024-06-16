@@ -3,11 +3,11 @@ import prismadb from "@/lib/prisma/prismadb";
 
 export const DELETE = async (
   req: NextRequest,
-  context: { params: { commentId: string; login: string } }
+  context: { params: { commentReplyId: string; login: string } }
 ) => {
-  const commentId = context.params.commentId;
+  const commentId = context.params.commentReplyId;
 
-  const comment = await prismadb.comment.findUnique({
+  const comment = await prismadb.commentReply.findUnique({
     where: { id: commentId },
   });
 
@@ -21,12 +21,12 @@ export const DELETE = async (
       { status: 401 }
     );
 
-  const collab = await prismadb.comment.delete({
+  await prismadb.commentReply.delete({
     where: { id: commentId },
   });
 
   return NextResponse.json(
-    { message: "Collab comment deleted" },
+    { message: "Collab comment reply deleted" },
     { status: 200 }
   );
 };

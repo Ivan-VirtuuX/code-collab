@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  const updatedUser = await prismadb.user.update({
+  await prismadb.user.update({
     where: {
       login: session?.user?.login,
     },
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
   });
 
   return NextResponse.json(
-    { collab, message: "Collab created", newUser: updatedUser },
+    { collab, message: "Collab created" },
     { status: 201 }
   );
 }
