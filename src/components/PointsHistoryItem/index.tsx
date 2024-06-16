@@ -13,6 +13,7 @@ export const PointsHistoryItem: React.FC<PointsHistoryItemProps> = ({
   eventType,
   createdAt,
 }) => {
+  console.log(createdAt);
   return (
     <div
       className={`${styles.container} flex items-center justify-between gap-2`}

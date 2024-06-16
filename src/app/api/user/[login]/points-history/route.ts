@@ -23,6 +23,7 @@ export const GET = async (
       points: true,
       collab: true,
       eventType: true,
+      createdAt: true,
     },
     orderBy: {
       createdAt: "desc",
