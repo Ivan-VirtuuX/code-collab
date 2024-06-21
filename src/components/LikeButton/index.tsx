@@ -1,8 +1,10 @@
 import React from "react";
+
 import { HeartIcon } from "@/ui/HeartIcon";
 
-import styles from "./LikeButton.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
+
+import styles from "./LikeButton.module.scss";
 
 interface LikeButtonProps {
   likesCount: number;

@@ -1,9 +1,10 @@
 "use client";
 
-import styles from "./CollabEditor.module.scss";
 import React from "react";
+
 import EditorJS, { OutputBlockData } from "@editorjs/editorjs";
 import ImageTool from "@editorjs/image";
+
 import { CloudinaryApi, cloudinaryBaseURL } from "@/api/CloudinaryApi";
 
 interface EditorProps {
@@ -92,7 +93,7 @@ const Editor: React.FC<EditorProps> = ({
     }, 1000);
   }, []);
 
-  return <div id="editor" className={styles.editor} />;
+  return <div id="editor" />;
 };
 
 export default React.memo(Editor);

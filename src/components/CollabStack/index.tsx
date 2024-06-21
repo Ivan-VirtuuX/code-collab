@@ -1,4 +1,5 @@
 import React from "react";
+
 import { getStackIcon } from "@/helpers/getStackIcon";
 
 import styles from "./CollabStack.module.scss";

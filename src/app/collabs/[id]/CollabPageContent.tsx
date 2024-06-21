@@ -1,14 +1,20 @@
 "use client";
 
-import styles from "@/app/collabs/[id]/Collab.module.scss";
-import { CommentItem } from "@/components/CommentItem";
 import React from "react";
-import { IComment } from "@/types/Comment";
-import { IUser } from "@/types/User";
-import { ICollab } from "@/types/Collab";
-import { SendIcon } from "@/ui/SendIcon";
-import { Api } from "@/api";
+
 import { useSession } from "next-auth/react";
+
+import styles from "@/app/collabs/[id]/Collab.module.scss";
+
+import { CommentItem } from "@/components/CommentItem";
+
+import { IUser } from "@/types/User";
+import { IComment } from "@/types/Comment";
+import { ICollab } from "@/types/Collab";
+
+import { SendIcon } from "@/ui/SendIcon";
+
+import { Api } from "@/api";
 
 interface CollabPageContentProps {
   initialComments: IComment[];

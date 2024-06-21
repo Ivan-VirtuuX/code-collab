@@ -1,18 +1,27 @@
 "use client";
 
-import styles from "./EditProfileForm.module.scss";
-import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { EditProfileSchema } from "@/schemas/index";
-import * as z from "zod";
-import { IUser } from "@/types/User";
+
 import { useRouter } from "next/navigation";
-import { DefaultAvatar } from "@/ui/DefaultAvatar";
-import { ChangeAvatarModal } from "@/components/ChangeAvatarModal";
 import { useSession } from "next-auth/react";
+
+import { AnimatePresence, motion } from "framer-motion";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+import { EditProfileSchema } from "@/schemas/index";
+
+import { IUser } from "@/types/User";
+
+import { DefaultAvatar } from "@/ui/DefaultAvatar";
+
+import { ChangeAvatarModal } from "@/components/ChangeAvatarModal";
+
 import { Api } from "@/api";
+
+import styles from "./EditProfileForm.module.scss";
 
 type EditProfileFormValues = z.infer<typeof EditProfileSchema>;
 

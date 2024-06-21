@@ -1,23 +1,27 @@
 import { Metadata, NextPage } from "next";
+import Link from "next/link";
 
-import styles from "@/styles/Home.module.scss";
-import { CommunityIcon } from "@/ui/CommunityIcon";
 import { BookIcon } from "@/ui/BookIcon";
-import { RatingIcon } from "@/ui/RatingIcon";
-import { QuestionIcon } from "@/ui/QuestionIcon";
-import { ArrowRightIcon } from "@/ui/ArrowRightIcon";
-import { GraphIcon } from "@/ui/GraphIcon";
-import { FeatureItem } from "@/components/FeatureItem";
 import { StarIcon } from "@/ui/StarIcon";
 import { PlusIcon } from "@/ui/PlusIcon";
 import { LockIcon } from "@/ui/LockIcon";
+import { GraphIcon } from "@/ui/GraphIcon";
+import { RatingIcon } from "@/ui/RatingIcon";
 import { ArrowUpIcon } from "@/ui/ArrowUpIcon";
+import { QuestionIcon } from "@/ui/QuestionIcon";
+import { CommunityIcon } from "@/ui/CommunityIcon";
+import { ArrowRightIcon } from "@/ui/ArrowRightIcon";
 import { LeaderboardIcon } from "@/ui/LeaderboardIcon";
-import { RankListItem } from "@/components/RankListItem";
-import { IUser } from "@/types/User";
+
 import { ReviewItem } from "@/components/ReviewItem";
+import { FeatureItem } from "@/components/FeatureItem";
+import { RankListItem } from "@/components/RankListItem";
+
+import { IUser } from "@/types/User";
+
 import { ranks } from "@/helpers/getRank";
-import Link from "next/link";
+
+import styles from "@/styles/Home.module.scss";
 
 export const metadata: Metadata = {
   title: "Code Collab",

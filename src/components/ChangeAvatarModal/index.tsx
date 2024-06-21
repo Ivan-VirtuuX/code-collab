@@ -1,9 +1,14 @@
 import React from "react";
-import styles from "./ChangeAvatarModal.module.scss";
+
 import { useSession } from "next-auth/react";
+
 import { PenIcon } from "@/ui/PenIcon";
+
 import { AnimatePresence, motion } from "framer-motion";
+
 import { Api } from "@/api";
+
+import styles from "./ChangeAvatarModal.module.scss";
 
 interface AvatarModalProps {
   handleChangeAvatar: (avatarUrl: string) => void;

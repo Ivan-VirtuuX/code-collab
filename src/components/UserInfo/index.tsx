@@ -1,12 +1,16 @@
 import React from "react";
+
+import Link from "next/link";
+
 import { IUser } from "@/types/User";
+
 import { DefaultAvatar } from "@/ui/DefaultAvatar";
+import { RatingIcon } from "@/ui/RatingIcon";
+
+import { formatRatingPoints } from "@/helpers/formatRatingPoints";
+import { getRank } from "@/helpers/getRank";
 
 import styles from "./UserInfo.module.scss";
-import { getRank } from "@/helpers/getRank";
-import { RatingIcon } from "@/ui/RatingIcon";
-import { formatRatingPoints } from "@/helpers/formatRatingPoints";
-import Link from "next/link";
 
 interface UserInfoProps extends IUser {}
 

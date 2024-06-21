@@ -1,14 +1,19 @@
-import styles from "./Header.module.scss";
-import { Logo } from "@/ui/Logo";
 import React from "react";
+
 import Link from "next/link";
-import { PeopleIcon } from "@/ui/PeopleIcon";
-import { UserIcon } from "@/ui/UserIcon";
 import { getServerSession } from "next-auth";
-import authOptions from "@/app/utils/auth";
-import { LogoutButton } from "@/components/LogoutButton";
-import { CreateIcon } from "@/ui/CreateIcon";
+
+import { PeopleIcon } from "@/ui/PeopleIcon";
 import { SearchIcon } from "@/ui/SearchIcon";
+import { CreateIcon } from "@/ui/CreateIcon";
+import { UserIcon } from "@/ui/UserIcon";
+import { Logo } from "@/ui/Logo";
+
+import authOptions from "@/app/utils/auth";
+
+import { LogoutButton } from "@/components/LogoutButton";
+
+import styles from "./Header.module.scss";
 
 export const Header: React.FC = async () => {
   const session = await getServerSession(authOptions);

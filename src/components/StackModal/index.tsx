@@ -1,8 +1,10 @@
 import React from "react";
+
 import { stackIcons } from "@/helpers/getStackIcon";
 
-import styles from "./StackModal.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
+
+import styles from "./StackModal.module.scss";
 
 interface StackModalProps {
   isOpen: boolean;

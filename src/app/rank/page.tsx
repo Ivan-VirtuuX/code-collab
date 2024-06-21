@@ -1,17 +1,23 @@
 import { Metadata, NextPage } from "next";
+import { getServerSession } from "next-auth";
+
+import { PageTitle } from "@/components/PageTitle";
+import { PointsHistoryItem } from "@/components/PointsHistoryItem";
+
+import authOptions from "@/app/utils/auth";
+
+import { formatRatingPoints } from "@/helpers/formatRatingPoints";
+import { getNextRank } from "@/helpers/getNextRank";
+import { getRank } from "@/helpers/getRank";
+
+import { StarIcon } from "@/ui/StarIcon";
+import { RatingIcon } from "@/ui/RatingIcon";
+
+import { Api } from "@/api";
+
+import { IUser } from "@/types/User";
 
 import styles from "./Rank.module.scss";
-import { PageTitle } from "@/components/PageTitle";
-import { StarIcon } from "@/ui/StarIcon";
-import { getRank } from "@/helpers/getRank";
-import { getServerSession } from "next-auth";
-import authOptions from "@/app/utils/auth";
-import { getNextRank } from "@/helpers/getNextRank";
-import { RatingIcon } from "@/ui/RatingIcon";
-import { formatRatingPoints } from "@/helpers/formatRatingPoints";
-import { PointsHistoryItem } from "@/components/PointsHistoryItem";
-import { Api } from "@/api";
-import { IUser } from "@/types/User";
 
 export const metadata: Metadata = {
   title: "Мой ранг",

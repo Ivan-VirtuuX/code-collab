@@ -1,11 +1,12 @@
 "use client";
 
-import styles from "./LogoutButton.module.scss";
+import React from "react";
 
 import { signOut } from "next-auth/react";
+
 import { ExitIcon } from "@/ui/ExitIcon";
 
-import React from "react";
+import styles from "./LogoutButton.module.scss";
 
 export const LogoutButton = () => {
   return (

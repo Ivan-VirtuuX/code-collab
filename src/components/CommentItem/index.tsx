@@ -1,21 +1,28 @@
 "use client";
 
-import { UserInfo } from "@/components/UserInfo";
 import React from "react";
+
+import { useSession } from "next-auth/react";
+
+import ContextMenu from "@/components/ContextMenu";
+import { UserInfo } from "@/components/UserInfo";
+import { CreatedAtBlock } from "@/components/CreatedAtBlock";
+import { CommentReplies } from "@/components/CommentReplies";
+
+import { ReplyIcon } from "@/ui/ReplyIcon";
+
+import { LikeButton } from "../LikeButton";
+
+import { IUser } from "@/types/User";
+import { ILike } from "@/types/Like";
 import { IComment } from "@/types/Comment";
+import { ICommentReply } from "@/types/CommentReply";
+
+import { Api } from "@/api";
+
+import { AnimatePresence, motion } from "framer-motion";
 
 import styles from "./CommentItem.module.scss";
-import { CreatedAtBlock } from "@/components/CreatedAtBlock";
-import { ReplyIcon } from "@/ui/ReplyIcon";
-import { LikeButton } from "../LikeButton";
-import { CommentReplies } from "@/components/CommentReplies";
-import { IUser } from "@/types/User";
-import { ICommentReply } from "@/types/CommentReply";
-import { Api } from "@/api";
-import ContextMenu from "@/components/ContextMenu";
-import { AnimatePresence, motion } from "framer-motion";
-import { ILike } from "@/types/Like";
-import { useSession } from "next-auth/react";
 
 interface CommentItemProps extends IComment {
   isCommentLiked: boolean;

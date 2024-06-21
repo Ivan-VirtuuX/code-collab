@@ -1,6 +1,9 @@
 import { Metadata, NextPage } from "next";
+
 import { PageTitle } from "@/components/PageTitle";
+
 import { SearchIcon } from "@/ui/SearchIcon";
+
 import { PageContent } from "./PageContent";
 
 export const metadata: Metadata = {

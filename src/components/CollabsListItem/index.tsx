@@ -1,20 +1,26 @@
 "use client";
 
 import React from "react";
+
+import Link from "next/link";
+
+import { EyeIcon } from "@/ui/EyeIcon";
+import { ReplyIcon } from "@/ui/ReplyIcon";
+
+import { CreatedAtBlock } from "@/components/CreatedAtBlock";
+import { CollabStack } from "@/components/CollabStack";
+import { CollabTags } from "@/components/CollabTags";
+import { UserInfo } from "@/components/UserInfo";
+import ContextMenu from "@/components/ContextMenu";
+
+import { OutputBlockData } from "@editorjs/editorjs";
+
+import { Api } from "@/api";
+
 import { ICollab } from "@/types/Collab";
+import { IUser } from "@/types/User";
 
 import styles from "./CollabsListItem.module.scss";
-import { UserInfo } from "@/components/UserInfo";
-import { EyeIcon } from "@/ui/EyeIcon";
-import { CollabStack } from "@/components/CollabStack";
-import { ReplyIcon } from "@/ui/ReplyIcon";
-import { CollabTags } from "@/components/CollabTags";
-import Link from "next/link";
-import { CreatedAtBlock } from "@/components/CreatedAtBlock";
-import { OutputBlockData } from "@editorjs/editorjs";
-import ContextMenu from "@/components/ContextMenu";
-import { Api } from "@/api";
-import { IUser } from "@/types/User";
 
 interface CollabItemProps extends ICollab {
   handleDelete?: (id: string) => void;

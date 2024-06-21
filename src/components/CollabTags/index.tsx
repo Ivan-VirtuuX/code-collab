@@ -1,7 +1,8 @@
 import React from "react";
 
-import styles from "./CollabTags.module.scss";
 import Link from "next/link";
+
+import styles from "./CollabTags.module.scss";
 
 interface CollabTagsProps {
   tags: string[];

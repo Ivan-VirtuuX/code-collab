@@ -1,7 +1,9 @@
 "use client";
 
-import { CollabsList } from "@/components/CollabsList";
 import React from "react";
+
+import { CollabsList } from "@/components/CollabsList";
+
 import { ICollab } from "@/types/Collab";
 import { IUser } from "@/types/User";
 

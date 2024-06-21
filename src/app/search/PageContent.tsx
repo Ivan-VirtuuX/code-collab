@@ -1,12 +1,16 @@
 "use client";
 
-import styles from "./Search.module.scss";
 import React, { useState } from "react";
+
 import { IUser } from "@/types/User";
 import { ICollab } from "@/types/Collab";
-import { CollabsList } from "@/components/CollabsList";
+
 import { Api } from "@/api";
+
+import { CollabsList } from "@/components/CollabsList";
 import { UserInfo } from "@/components/UserInfo";
+
+import styles from "./Search.module.scss";
 
 export const PageContent = () => {
   const [searchQuery, setSearchQuery] = useState("");

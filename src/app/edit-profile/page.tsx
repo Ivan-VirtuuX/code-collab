@@ -1,10 +1,14 @@
-import { Metadata, NextPage } from "next";
-import { PageTitle } from "@/components/PageTitle";
-import { EditProfileIcon } from "@/ui/EditProfileIcon";
 import React from "react";
-import { EditProfileForm } from "@/components/EditProfileForm";
-import authOptions from "@/app/utils/auth";
+
+import { Metadata, NextPage } from "next";
 import { getServerSession } from "next-auth";
+
+import { EditProfileIcon } from "@/ui/EditProfileIcon";
+
+import { PageTitle } from "@/components/PageTitle";
+import { EditProfileForm } from "@/components/EditProfileForm";
+
+import authOptions from "@/app/utils/auth";
 
 export const metadata: Metadata = {
   title: "Редактирование профиля",

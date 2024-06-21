@@ -1,14 +1,14 @@
+import React from "react";
+
 import styles from "./FeatureItem.module.scss";
 
 interface PlatformFeatureProps {
-  id: number;
   title: string;
   description: string;
   icon: React.ReactNode;
   color: string;
 }
 export const FeatureItem: React.FC<PlatformFeatureProps> = ({
-  id,
   title,
   description,
   icon,

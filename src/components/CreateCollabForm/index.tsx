@@ -1,20 +1,27 @@
 "use client";
 
 import React from "react";
+
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 import { OutputData } from "@editorjs/editorjs";
+
 import { PageTitle } from "@/components/PageTitle";
+import { StackModal } from "@/components/StackModal";
+
 import { CreateIcon } from "@/ui/CreateIcon";
 
-import styles from "./CreateCollabForm.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
+
 import { getStackIcon } from "@/helpers/getStackIcon";
 
 import { PlusIcon } from "./PlusIcon";
-import { StackModal } from "@/components/StackModal";
-import dynamic from "next/dynamic";
-import { useSession } from "next-auth/react";
+
 import { Api } from "@/api";
-import { useRouter } from "next/navigation";
+
+import styles from "./CreateCollabForm.module.scss";
 
 const Editor = dynamic(() => import("@/components/CollabEditor"), {
   ssr: false,

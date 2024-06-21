@@ -1,11 +1,14 @@
 import React from "react";
+
 import { IUser } from "@/types/User";
+
+import { RatingIcon } from "@/ui/RatingIcon";
 import { DefaultAvatar } from "@/ui/DefaultAvatar";
+
 import { getRank } from "@/helpers/getRank";
+import { formatRatingPoints } from "@/helpers/formatRatingPoints";
 
 import styles from "./ReviewItem.module.scss";
-import { formatRatingPoints } from "@/helpers/formatRatingPoints";
-import { RatingIcon } from "@/ui/RatingIcon";
 
 interface ReviewItemProps {
   user: IUser;

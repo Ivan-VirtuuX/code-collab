@@ -1,5 +1,7 @@
-import { CollabsListItem } from "@/components/CollabsListItem";
 import React from "react";
+
+import { CollabsListItem } from "@/components/CollabsListItem";
+
 import { ICollab } from "@/types/Collab";
 import { IUser } from "@/types/User";
 
@@ -27,7 +29,6 @@ export const CollabsList: React.FC<CollabsListProps> = ({
             {...collab}
             authUser={authUser}
             handleDelete={setCollabs && handleDelete}
-            canDelete
           />
         ))}
     </div>

@@ -1,7 +1,9 @@
 import { AxiosInstance } from "axios";
+
 import { ICollab } from "@/types/Collab";
 import { IUser } from "@/types/User";
 import { IPointsHistory } from "@/types/PointsHistory";
+
 import { CloudinaryApi } from "@/api/CloudinaryApi";
 
 export const UserApi = (instance: AxiosInstance) => ({
@@ -29,8 +31,6 @@ export const UserApi = (instance: AxiosInstance) => ({
     const { data } = await instance.get<IPointsHistory[]>(
       `user/${login}/points-history`
     );
-
-    console.log(data);
 
     return data;
   },

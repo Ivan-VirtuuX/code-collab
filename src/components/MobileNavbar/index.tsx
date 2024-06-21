@@ -1,10 +1,12 @@
 import React from "react";
 
-import styles from "./MobileNavbar.module.scss";
-import { PeopleIcon } from "@/ui/PeopleIcon";
 import Link from "next/link";
+
+import { PeopleIcon } from "@/ui/PeopleIcon";
 import { CreateIcon } from "@/ui/CreateIcon";
 import { SearchIcon } from "@/ui/SearchIcon";
+
+import styles from "./MobileNavbar.module.scss";
 
 export const Index: React.FC = () => {
   const navItems = [

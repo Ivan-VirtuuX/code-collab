@@ -1,9 +1,12 @@
 import React from "react";
+
+import Link from "next/link";
+
 import { IPointsHistory } from "@/types/PointsHistory";
 
-import styles from "./PointsHistoryItem.module.scss";
 import { formatDate } from "@/helpers/formatDate";
-import Link from "next/link";
+
+import styles from "./PointsHistoryItem.module.scss";
 
 interface PointsHistoryItemProps extends IPointsHistory {}
 

@@ -1,11 +1,16 @@
 "use client";
 
-import { PageTitle } from "@/components/PageTitle";
-import { PeopleIcon } from "@/ui/PeopleIcon";
-import styles from "@/app/collabs/CollabsPage.module.scss";
-import { CollabsList } from "@/components/CollabsList";
 import React from "react";
+
+import { PageTitle } from "@/components/PageTitle";
+import { CollabsList } from "@/components/CollabsList";
+
+import { PeopleIcon } from "@/ui/PeopleIcon";
+
+import styles from "@/app/collabs/CollabsPage.module.scss";
+
 import { Api } from "@/api";
+
 import { ICollab } from "@/types/Collab";
 import { IUser } from "@/types/User";
 

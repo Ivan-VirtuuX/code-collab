@@ -1,4 +1,5 @@
 import { Metadata, NextPage } from "next";
+
 import { AuthForm } from "@/components/AuthForm";
 
 export const metadata: Metadata = {

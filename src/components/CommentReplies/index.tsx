@@ -1,10 +1,12 @@
 import React from "react";
+
 import { CommentItem } from "@/components/CommentItem";
-import { ICommentReply } from "@/types/CommentReply";
+
 import { IUser } from "@/types/User";
+import { IComment } from "@/types/Comment";
+import { ICommentReply } from "@/types/CommentReply";
 
 import styles from "./CommentReplies.module.scss";
-import { IComment } from "@/types/Comment";
 
 interface CommentRepliesProps {
   replies: ICommentReply[];

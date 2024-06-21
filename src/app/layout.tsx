@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
+import React from "react";
+
 import { Rubik } from "next/font/google";
+import type { Metadata } from "next";
 
 import { Header } from "@/components/Header";
+import { MobileNavbar } from "@/components/MobileNavbar";
+
+import { Provider } from "../../context/Provider";
 
 import "@/styles/globals.scss";
-import { Provider } from "../../context/Provider";
-import React from "react";
-import { MobileNavbar } from "@/components/MobileNavbar";
 
 const rubik = Rubik({ subsets: ["latin"] });
 

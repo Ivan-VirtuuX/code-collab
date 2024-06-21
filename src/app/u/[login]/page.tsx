@@ -1,20 +1,27 @@
-import { Metadata } from "next";
-import { PageTitle } from "@/components/PageTitle";
-import { FoldersIcon } from "@/ui/FoldersIcon";
-import Link from "next/link";
-import styles from "./User.module.scss";
-import { CreateIcon } from "@/ui/CreateIcon";
-import { getServerSession } from "next-auth";
-import { DefaultAvatar } from "@/ui/DefaultAvatar";
 import React from "react";
-import { formatDate } from "@/helpers/formatDate";
-import { getRank } from "@/helpers/getRank";
+import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
+
+import { PageTitle } from "@/components/PageTitle";
+
+import { DefaultAvatar } from "@/ui/DefaultAvatar";
+import { FoldersIcon } from "@/ui/FoldersIcon";
+import { CreateIcon } from "@/ui/CreateIcon";
 import { RatingIcon } from "@/ui/RatingIcon";
 import { GitHubIcon } from "@/ui/GitHubIcon";
+
 import authOptions from "@/app/utils/auth";
-import { formatRatingPoints } from "@/helpers/formatRatingPoints";
+
 import { Api } from "@/api";
+
+import { formatRatingPoints } from "@/helpers/formatRatingPoints";
+import { formatDate } from "@/helpers/formatDate";
+import { getRank } from "@/helpers/getRank";
+
 import { PageContent } from "./PageContent";
+
+import styles from "./User.module.scss";
 
 const getData = async (login: string) => {
   const collabs = await Api().user.getCollabs(login);

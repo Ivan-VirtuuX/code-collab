@@ -1,5 +1,7 @@
-import { Metadata, NextPage } from "next";
 import React from "react";
+
+import { Metadata, NextPage } from "next";
+
 import { CreateCollabForm } from "@/components/CreateCollabForm";
 
 export const metadata: Metadata = {

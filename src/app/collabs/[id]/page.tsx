@@ -1,15 +1,20 @@
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+
 import { ICollab } from "@/types/Collab";
+import { IUser } from "@/types/User";
+
+import { Api } from "@/api";
+
 import { PageTitle } from "@/components/PageTitle";
-import { CommentIcon } from "@/ui/CommentIcon";
 import { CollabsListItem } from "@/components/CollabsListItem";
 
-import styles from "./Collab.module.scss";
-import { getServerSession } from "next-auth";
+import { CommentIcon } from "@/ui/CommentIcon";
+
 import authOptions from "@/app/utils/auth";
 import { CollabPageContent } from "@/app/collabs/[id]/CollabPageContent";
-import { Api } from "@/api";
-import { IUser } from "@/types/User";
+
+import styles from "./Collab.module.scss";
 
 const getCollab = async (id: string, login: string) => {
   await Api().collab.incrementViews(id, login);

@@ -1,14 +1,19 @@
 "use client";
 
 import React from "react";
-import styles from "./AuthForm.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
-import * as z from "zod";
-import { LoginSchema, RegisterSchema } from "@/schemas/index";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion } from "framer-motion";
+
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { LoginSchema, RegisterSchema } from "@/schemas/index";
+
+import { AnimatePresence, motion } from "framer-motion";
+
+import styles from "./AuthForm.module.scss";
 
 interface AuthFormProps {
   type: "register" | "login";

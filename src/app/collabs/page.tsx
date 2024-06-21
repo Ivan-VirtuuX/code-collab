@@ -1,6 +1,7 @@
 import { Metadata, NextPage } from "next";
-import { CollabsPageContent } from "@/app/collabs/CollabsPageContent";
 import { getServerSession } from "next-auth";
+
+import { CollabsPageContent } from "@/app/collabs/CollabsPageContent";
 import authOptions from "@/app/utils/auth";
 
 export const metadata: Metadata = {

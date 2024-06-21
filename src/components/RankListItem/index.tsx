@@ -1,9 +1,11 @@
 import React from "react";
 
-import styles from "./RankListItem.module.scss";
 import { IRank } from "@/types/Rank";
+
 import { convertHexToRgba } from "@/helpers/convertHexToRgba";
 import { formatRatingPoints } from "@/helpers/formatRatingPoints";
+
+import styles from "./RankListItem.module.scss";
 
 interface RankListItemProps extends IRank {}
 

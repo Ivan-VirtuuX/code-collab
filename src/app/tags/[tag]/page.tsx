@@ -1,8 +1,11 @@
-import { PageTitle } from "@/components/PageTitle";
-import { TagIcon } from "@/ui/TagIcon";
 import { Metadata } from "next";
-import { Api } from "@/api";
+
+import { PageTitle } from "@/components/PageTitle";
 import { CollabsList } from "@/components/CollabsList";
+
+import { TagIcon } from "@/ui/TagIcon";
+
+import { Api } from "@/api";
 
 interface MetadataProps {
   params: { id: string; tag: string };
