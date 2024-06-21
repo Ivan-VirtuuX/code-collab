@@ -23,16 +23,7 @@ export const ChangeAvatarModal: React.FC<AvatarModalProps> = ({
 
   const attachedImageRef = React.useRef<HTMLInputElement>(null);
 
-  const { data: session, status, update } = useSession();
-
-  const onCloseImage = async () => {
-    await setAttachedImageFormData([]);
-    await setAttachedImageFormData([]);
-    await setAttachedImage(undefined);
-    await setIsSaveImage(false);
-    await setPreview("");
-    await setIsChangeAvatarOpen(false);
-  };
+  const { update } = useSession();
 
   const handleChangeImage = async (files: FileList | null) => {
     try {
@@ -69,7 +60,9 @@ export const ChangeAvatarModal: React.FC<AvatarModalProps> = ({
     } catch (err) {
       console.error(err);
 
-      alert("Ошибка при загрузке аватара");
+      alert(
+        "Ошибка при загрузке аватара, превышен максимальный размер файла 10 мегабайт"
+      );
     } finally {
       setIsSaveImage(false);
       setIsUploading(false);

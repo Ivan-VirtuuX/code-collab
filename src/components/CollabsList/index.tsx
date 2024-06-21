@@ -19,7 +19,7 @@ export const CollabsList: React.FC<CollabsListProps> = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-5">
       {collabs.length !== 0 &&
         collabs.map((collab) => (
           <CollabsListItem
@@ -30,6 +30,6 @@ export const CollabsList: React.FC<CollabsListProps> = ({
             canDelete
           />
         ))}
-    </>
+    </div>
   );
 };

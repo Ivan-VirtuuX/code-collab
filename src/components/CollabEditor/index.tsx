@@ -35,7 +35,7 @@ const Editor: React.FC<EditorProps> = ({
           const paragraphCount = blocks.filter(
             (block) => block.type === "paragraph"
           ).length;
-          if (paragraphCount >= 10) {
+          if (paragraphCount > 10) {
             setEditorError("Вы не можете добавить больше 10 блоков");
             window.scrollTo({ top: 0, behavior: "smooth" });
           } else setEditorError("");

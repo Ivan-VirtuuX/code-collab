@@ -121,7 +121,11 @@ export const CollabPageContent: React.FC<CollabPageContentProps> = ({
         {collabComments.length === 0 && (
           <div>
             <p className={styles.noCommentsTitle}>Список пуст</p>
-            <p className={styles.noCommentsText}>Оставьте комментарий первым</p>
+            {isAuth && (
+              <p className={styles.noCommentsText}>
+                Оставьте комментарий первым
+              </p>
+            )}
           </div>
         )}
       </div>

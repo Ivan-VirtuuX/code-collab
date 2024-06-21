@@ -81,6 +81,7 @@
   font-size: 24px;
   line-height: 28px;
   resize: vertical;
+  width: 100%;
   transition: outline 0.2s ease-in-out;
 
   &::placeholder {
@@ -92,7 +93,8 @@
   }
 }
 
-.warning {
+.warning,
+.error {
   background: #f6d346;
   border: 5px solid #ffebc3;
   padding: 10px 20px;
@@ -104,6 +106,26 @@
   @media (max-width: 600px) {
     width: 100%;
     font-size: clamp(10px, 5vw, 15px);
+  }
+}
+
+.error {
+  background: $red;
+  border: 5px solid #ff7f86;
+}
+
+.symbolsCount {
+  font-size: 16px;
+  line-height: 19px;
+  background: #fff;
+  border-radius: 25px;
+  padding: 5px;
+  color: $primary;
+  left: 10px;
+  bottom: 10px;
+
+  &Error {
+    color: $red;
   }
 }
 

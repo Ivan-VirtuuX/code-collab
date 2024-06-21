@@ -2,7 +2,6 @@
 
 import React from "react";
 import { OutputData } from "@editorjs/editorjs";
-import { useRouter } from "next/navigation";
 import { PageTitle } from "@/components/PageTitle";
 import { CreateIcon } from "@/ui/CreateIcon";
 
@@ -15,6 +14,7 @@ import { StackModal } from "@/components/StackModal";
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { Api } from "@/api";
+import { useRouter } from "next/navigation";
 
 const Editor = dynamic(() => import("@/components/CollabEditor"), {
   ssr: false,
@@ -32,15 +32,23 @@ export const CreateCollabForm = () => {
   const [title, setTitle] = React.useState("");
   const [editorError, setEditorError] = React.useState<string>("");
 
+  const router = useRouter();
+
   const { data: session, update } = useSession();
 
   const userRatingPoints = session?.user?.ratingPoints || 0;
 
+  const saveButtonDisabled =
+    isImageUploading ||
+    !blocks.length ||
+    isLoading ||
+    blocks.filter((block) => block.type === "image").length > 10 ||
+    !title ||
+    title.length > 100;
+
   const openModal = () => setIsModalOpen(true);
 
   const closeModal = () => setIsModalOpen(false);
-
-  const router = useRouter();
 
   const onCreateCollab = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,6 +110,20 @@ export const CreateCollabForm = () => {
       <form className={styles.form} onSubmit={onCreateCollab}>
         <div className="flex flex-col gap-10">
           <div>
+            {title.length > 100 && (
+              <AnimatePresence>
+                <motion.div
+                  className={styles.editorError}
+                  layout
+                  initial={{ opacity: 0, x: -400, scale: 0.5 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 200, scale: 1.2 }}
+                  transition={{ duration: 0.6, type: "spring" }}
+                >
+                  Максимальная длина заголовка - 100 символов
+                </motion.div>
+              </AnimatePresence>
+            )}
             <p className={styles.title}>Заголовок</p>
             <input
               type="text"
@@ -229,13 +251,7 @@ export const CreateCollabForm = () => {
           <button
             type="submit"
             className={styles.saveButton}
-            disabled={
-              isImageUploading ||
-              !blocks.length ||
-              isLoading ||
-              blocks.filter((block) => block.type === "image").length > 10 ||
-              !title
-            }
+            disabled={saveButtonDisabled}
             color="primary"
           >
             Сохранить

@@ -73,6 +73,6 @@ export const EditProfileSchema = z.object({
     }),
   bio: z
     .string()
-    .max(1000, "Био должно быть максимум 1000 символов")
+    .max(1000, "Текст должен содержать максимум 1000 символов")
     .optional(),
 });

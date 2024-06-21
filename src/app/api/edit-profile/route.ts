@@ -13,17 +13,20 @@ export async function PATCH(req: NextRequest) {
 
   session.user = { ...session.user, login, location, githubUrl, bio };
 
-  await prismadb.user.update({
-    where: {
-      id: session.user.id,
-    },
-    data: {
-      login,
-      location,
-      githubUrl,
-      bio,
-    },
-  });
-
-  return NextResponse.json({ message: "Profile updated" }, { status: 200 });
+  try {
+    await prismadb.user.update({
+      where: {
+        id: session.user.id,
+      },
+      data: {
+        login,
+        location,
+        githubUrl,
+        bio,
+      },
+    });
+    return NextResponse.json({ message: "Profile updated" }, { status: 200 });
+  } catch (err) {
+    return NextResponse.json({ message: "Логин занят" }, { status: 500 });
+  }
 }

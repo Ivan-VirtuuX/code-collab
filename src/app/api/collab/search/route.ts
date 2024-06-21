@@ -13,35 +13,88 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const collabs = await prismadb.collab.findMany({
-      where: {
-        OR: [
-          {
-            title: {
-              contains: query,
-              mode: "insensitive",
-            },
+    if (query.startsWith("#")) {
+      const tag = query.slice(1);
+
+      const collabs = await prismadb.collab.findMany({
+        where: {
+          tags: {
+            has: tag,
           },
-          {
-            textContent: {
-              contains: query,
-              mode: "insensitive",
+        },
+        select: {
+          author: true,
+          id: true,
+          title: true,
+          createdAt: true,
+          comments: true,
+          stack: true,
+          tags: true,
+          viewsCount: true,
+        },
+      });
+      return NextResponse.json(collabs, { status: 200 });
+    } else {
+      // Иначе ищем по названию или содержимому
+      const collabs = await prismadb.collab.findMany({
+        where: {
+          OR: [
+            {
+              title: {
+                contains: query,
+                mode: "insensitive",
+              },
             },
-          },
-        ],
-      },
-      select: {
-        author: true,
-        id: true,
-        title: true,
-        createdAt: true,
-        comments: true,
-        stack: true,
-        tags: true,
-        viewsCount: true,
-      },
-    });
-    return NextResponse.json(collabs, { status: 200 });
+            {
+              textContent: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+        select: {
+          author: true,
+          id: true,
+          title: true,
+          createdAt: true,
+          comments: true,
+          stack: true,
+          tags: true,
+          viewsCount: true,
+        },
+      });
+      return NextResponse.json(collabs, { status: 200 });
+    }
+
+    // const collabs = await prismadb.collab.findMany({
+    //   where: {
+    //     OR: [
+    //       {
+    //         title: {
+    //           contains: query,
+    //           mode: "insensitive",
+    //         },
+    //       },
+    //       {
+    //         textContent: {
+    //           contains: query,
+    //           mode: "insensitive",
+    //         },
+    //       },
+    //     ],
+    //   },
+    //   select: {
+    //     author: true,
+    //     id: true,
+    //     title: true,
+    //     createdAt: true,
+    //     comments: true,
+    //     stack: true,
+    //     tags: true,
+    //     viewsCount: true,
+    //   },
+    // });
   } catch (error) {
     return NextResponse.json(
       { error: "Internal server error" },

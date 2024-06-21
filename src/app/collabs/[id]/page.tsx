@@ -37,7 +37,7 @@ const Collab = async ({ params }: { params: { id: string } }) => {
   return (
     <main className="container">
       <div className={styles.collabContainer}>
-        <CollabsListItem {...collab} canDelete={false} />
+        <CollabsListItem {...collab} isCollabPage={true} />
       </div>
       <PageTitle title="Комментарии">
         <CommentIcon />

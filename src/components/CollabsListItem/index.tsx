@@ -18,7 +18,7 @@ import { IUser } from "@/types/User";
 
 interface CollabItemProps extends ICollab {
   handleDelete?: (id: string) => void;
-  canDelete?: boolean;
+  isCollabPage?: boolean;
   authUser?: IUser;
 }
 
@@ -33,7 +33,7 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
   viewsCount,
   body,
   handleDelete,
-  canDelete = true,
+  isCollabPage = false,
   authUser,
 }) => {
   const [contextMenu, setContextMenu] = React.useState<{
@@ -43,7 +43,7 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const handleContextMenu = (e: React.MouseEvent) => {
-    if (canDelete && author.id === authUser?.id) {
+    if (!isCollabPage && author.id === authUser?.id) {
       e.preventDefault();
       setContextMenu({ x: e.pageX, y: e.pageY });
     }
@@ -77,10 +77,14 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
           </div>
         </div>
       </div>
-      <Link href={`/collabs/${id}`}>
-        <p className={styles.title}>{title}</p>
-      </Link>
-      <div>
+      {isCollabPage ? (
+        <p className={styles.collabPageTitle}>{title}</p>
+      ) : (
+        <Link href={`/collabs/${id}`}>
+          <p className={styles.title}>{title}</p>
+        </Link>
+      )}
+      <div style={{ marginBottom: 10 }} className="flex flex-col gap-2">
         {body?.map((obj: OutputBlockData["data"]) => (
           <p key={obj?.id} className={styles.text}>
             {obj.data.text}

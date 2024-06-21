@@ -46,7 +46,9 @@ export const PageContent = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={`Поиск ${
-              searchType === "user" ? "пользователей" : "коллаб"
+              searchType === "user"
+                ? "пользователей"
+                : "коллаб по тегу #запрос или тексту"
             }`}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
@@ -91,9 +93,7 @@ export const PageContent = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col gap-5">
-              <CollabsList collabs={results.collabs} />
-            </div>
+            <CollabsList collabs={results.collabs} />
           )
         ) : (
           <div>

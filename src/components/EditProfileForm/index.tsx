@@ -23,6 +23,8 @@ interface EditProfileFormProps {
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
   const [error, setError] = React.useState("");
   const [avatar, setAvatar] = React.useState(user?.avatarUrl);
+  const [login, setLogin] = React.useState(user?.login);
+  const [bio, setBio] = React.useState(user?.bio);
 
   const { update } = useSession();
 
@@ -55,12 +57,26 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
         bio,
       });
       router.push(`/u/${login}`);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-
-      setError("Ошибка при сохранении профиля");
+      setError(err?.response?.data.message);
     }
   };
+
+  const handleChangeLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLogin(e.target.value);
+    form.setValue("login", e.target.value);
+    form.trigger("login");
+  };
+  const handleChangeBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setBio(e.target.value);
+    form.setValue("bio", e.target.value);
+    form.trigger("bio");
+  };
+
+  React.useEffect(() => {
+    setError("");
+  }, [login]);
 
   return (
     <div>
@@ -97,6 +113,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
                   className={styles.input}
                   type="text"
                   placeholder="Логин"
+                  onChange={handleChangeLogin}
                 />
               </div>
               {form.formState.errors.login && (
@@ -187,14 +204,27 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
             <label htmlFor="bio" className={styles.label}>
               Обо мне
             </label>
-            <textarea
-              id="bio"
-              {...form.register("bio")}
-              className={styles.textarea}
-              placeholder="Расскажите о себе"
-            />
+            <div className="relative w-full">
+              <textarea
+                id="bio"
+                {...form.register("bio")}
+                className={styles.textarea}
+                placeholder="Расскажите о себе"
+                onChange={handleChangeBio}
+              />
+              <div
+                className={`${styles.symbolsCount} ${
+                  form.formState.errors.bio
+                    ? styles.symbolsCountError
+                    : styles.symbolsCount
+                } absolute`}
+              >
+                <span>{bio?.length || 0}</span>
+                <span>/1000</span>
+              </div>
+            </div>
           </div>
-          {form.formState.errors.location && (
+          {form.formState.errors.bio && (
             <AnimatePresence>
               <motion.div
                 className={styles.warning}
@@ -204,7 +234,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
                 exit={{ opacity: 0, x: 200, scale: 1.2 }}
                 transition={{ duration: 0.6, type: "spring" }}
               >
-                {form.formState.errors.location.message}
+                {form.formState.errors.bio.message}
               </motion.div>
             </AnimatePresence>
           )}
