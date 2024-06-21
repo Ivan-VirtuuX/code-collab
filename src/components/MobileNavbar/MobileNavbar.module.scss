@@ -9,9 +9,10 @@
   background: #fff;
   z-index: 1000;
   padding: 12px 0;
+  display: none;
 
-  @media (min-width: 720px) {
-    display: none;
+  @media (max-width: 720px) {
+    display: flex;
   }
 }
 

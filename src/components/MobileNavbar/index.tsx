@@ -31,7 +31,7 @@ export const Index: React.FC = () => {
   ];
 
   return (
-    <ul className={`${styles.container} flex items-center`}>
+    <ul className={`${styles.container} items-center`}>
       <div className="flex justify-center w-full">
         <div className="container flex justify-between gap-5">
           {navItems.map((item) => (
