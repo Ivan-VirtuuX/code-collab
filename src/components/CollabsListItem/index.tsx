@@ -96,6 +96,31 @@ export const CollabsListItem: React.FC<CollabItemProps> = ({
             {obj.data.text}
           </p>
         ))}
+        {body?.some((obj: OutputBlockData["data"]) => obj.type === "image") && (
+          <div
+            className={styles.imagesBlock}
+            style={{
+              gridTemplateColumns:
+                body.filter(
+                  (obj: OutputBlockData["data"]) => obj.type === "image"
+                ).length >= 2
+                  ? "1fr 1fr"
+                  : "1fr",
+            }}
+          >
+            {body.map(
+              (obj: OutputBlockData["data"]) =>
+                obj?.data?.file?.url && (
+                  <img
+                    key={obj?.id}
+                    className={styles.image}
+                    src={obj.data.file.url}
+                    alt="post image"
+                  />
+                )
+            )}
+          </div>
+        )}
       </div>
       <div className="flex justify-end">
         <CollabStack stack={stack} />
