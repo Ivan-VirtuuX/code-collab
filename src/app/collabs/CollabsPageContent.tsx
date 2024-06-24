@@ -84,7 +84,7 @@ export const CollabsPageContent: React.FC<{ authUser?: IUser }> = ({
                 padding: "20px",
               }}
             >
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start flex-wrap gap-2">
                 <div className="flex gap-3">
                   <Skeleton variant="circular" width={50} height={50} />
                   <div className="flex flex-col">
@@ -108,7 +108,7 @@ export const CollabsPageContent: React.FC<{ authUser?: IUser }> = ({
                     />
                   </div>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 flex-wrap">
                   <div className="flex items-center gap-2">
                     <Skeleton variant="circular" width={20} height={20} />
                     <Skeleton
@@ -138,7 +138,7 @@ export const CollabsPageContent: React.FC<{ authUser?: IUser }> = ({
                 <Skeleton variant="circular" width={40} height={40} />
               </div>
               <div
-                className="flex justify-between items-center"
+                className="flex items-center justify-between flex-wrap-reverse gap-2 mt-4"
                 style={{ marginTop: "16px" }}
               >
                 <Skeleton
